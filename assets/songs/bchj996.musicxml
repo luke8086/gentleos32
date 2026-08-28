@@ -7,7 +7,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.4</software>
-      <encoding-date>2026-08-23</encoding-date>
+      <encoding-date>2026-08-29</encoding-date>
       <supports element="accidental" type="yes"/>
       <supports element="beam" type="yes"/>
       <supports element="print" attribute="new-page" type="no"/>
@@ -356,10 +356,16 @@
           <step>E</step>
           <octave>3</octave>
           </pitch>
-        <duration>8</duration>
+        <duration>4</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>eighth</type>
         <stem>up</stem>
+        </note>
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+        <type>eighth</type>
         </note>
       <note>
         <pitch>
@@ -703,10 +709,17 @@
           <step>G</step>
           <octave>3</octave>
           </pitch>
-        <duration>16</duration>
+        <duration>12</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot/>
         <stem>up</stem>
+        </note>
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+        <type>eighth</type>
         </note>
       <note>
         <rest/>
@@ -998,10 +1011,16 @@
           <step>E</step>
           <octave>3</octave>
           </pitch>
-        <duration>8</duration>
+        <duration>4</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>eighth</type>
         <stem>up</stem>
+        </note>
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+        <type>eighth</type>
         </note>
       <note>
         <pitch>
@@ -1345,10 +1364,17 @@
           <step>G</step>
           <octave>3</octave>
           </pitch>
-        <duration>16</duration>
+        <duration>12</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot/>
         <stem>up</stem>
+        </note>
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+        <type>eighth</type>
         </note>
       <note>
         <rest/>
@@ -2665,10 +2691,17 @@
           <step>E</step>
           <octave>3</octave>
           </pitch>
-        <duration>16</duration>
+        <duration>12</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot/>
         <stem>up</stem>
+        </note>
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+        <type>eighth</type>
         </note>
       <note>
         <rest/>
