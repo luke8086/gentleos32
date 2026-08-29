@@ -161,7 +161,7 @@ update_display(void)
     int text_width = strlen(buf) * font->size.width;
     int text_x = rect.x + rect.width - text_width - 10;
     int text_y = rect.y + (rect.height - font_8x16->size.height) / 2 + 1;
-    gui_surface_draw_str(a->window.surface, text_x, text_y, font,
+    gui_surface_draw_str_at(a->window.surface, text_x, text_y, font,
         buf, COLOR_WIDGET_FG, COLOR_WIDGET_BG);
 
     gui_wm_render_window_region(&a->window, rect);

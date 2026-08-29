@@ -57,7 +57,7 @@ gui_status_set_text(const char *text, uint8_t color)
     status_text[sizeof(status_text) - 1] = 0;
     status_text_color = color;
 
-    gui_surface_draw_str(window.surface, TEXT_X, TEXT_Y, font, text, color,
+    gui_surface_draw_str_at(window.surface, TEXT_X, TEXT_Y, font, text, color,
         status_bg_color);
 
     /* If the new text is shorter than previous, clear the remaining space */

@@ -98,10 +98,12 @@ gui_surface_draw_char(surface_st *surface, uint16_t x, uint16_t y,
 }
 
 global void
-gui_surface_draw_str(surface_st *surface, uint16_t x, uint16_t y,
+gui_surface_draw_str_at(surface_st *surface, uint16_t x, uint16_t y,
     font_st *font, const char *s, uint8_t fg, uint8_t bg)
 {
-    for (int i = 0; s[i]; i++) {
+    int i;
+
+    for (i = 0; s[i]; ++i) {
         gui_surface_draw_char(surface, x + i * font->size.width, y, font, s[i], fg, bg);
     }
 }
@@ -119,7 +121,7 @@ gui_surface_draw_str_cc(surface_st *surface, rect_st rect,
         ++y;
     }
 
-    gui_surface_draw_str(surface, x, y, font, s, fg, bg);
+    gui_surface_draw_str_at(surface, x, y, font, s, fg, bg);
 }
 
 global void
@@ -129,7 +131,7 @@ gui_surface_draw_str_cl(surface_st *surface, rect_st rect, int padding,
     int x = rect.x + padding;
     int y = rect.y + (rect.height - font->size.height) / 2;
 
-    gui_surface_draw_str(surface, x, y, font, s, fg, bg);
+    gui_surface_draw_str_at(surface, x, y, font, s, fg, bg);
 }
 
 global void
@@ -139,7 +141,7 @@ gui_surface_draw_str_cr(surface_st *surface, rect_st rect, int padding,
     int x = rect.x + rect.width - padding - strlen(s) * font->size.width;
     int y = rect.y + (rect.height - font->size.height) / 2;
 
-    gui_surface_draw_str(surface, x, y, font, s, fg, bg);
+    gui_surface_draw_str_at(surface, x, y, font, s, fg, bg);
 }
 
 static void

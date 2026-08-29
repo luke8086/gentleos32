@@ -145,13 +145,13 @@ card_draw(card_game_st *game, int x, int y, card_t card, int selected)
     gui_surface_draw_rect(game->surface, r, bg);
     gui_surface_draw_border(game->surface, r, COLOR_BORDER);
 
-    gui_surface_draw_str(game->surface, x + 3, y + 2, font_8x8,
+    gui_surface_draw_str_at(game->surface, x + 3, y + 2, font_8x8,
         card_rank_str[rank], fg, bg);
 
     gui_surface_draw_str_cc(game->surface, r, font_8x16,
         card_suit_str[suit], fg, bg);
 
-    gui_surface_draw_str(game->surface,
+    gui_surface_draw_str_at(game->surface,
         x + game->card_width - strlen(card_rank_str[rank]) * 8 - 3,
         y + game->card_height - 10,
         font_8x8, card_rank_str[rank], fg, bg);
@@ -177,10 +177,10 @@ card_stub_draw(card_game_st *game, int x, int y, int height, card_t card, int se
     gui_surface_draw_v_seg(game->surface, x, y, height, COLOR_BORDER);
     gui_surface_draw_v_seg(game->surface, x + game->card_width - 1, y, height, COLOR_BORDER);
 
-    gui_surface_draw_str(game->surface, x + 3, y + 2, font_8x8,
+    gui_surface_draw_str_at(game->surface, x + 3, y + 2, font_8x8,
         card_rank_str[rank], fg, bg);
 
-    gui_surface_draw_str(game->surface,
+    gui_surface_draw_str_at(game->surface,
         x + game->card_width - strlen(card_suit_str[suit]) * 8 - 3,
         y + 2,
         font_8x8, card_suit_str[suit], fg, bg);

@@ -334,15 +334,15 @@ draw_window(window_st *window)
 
     gui_window_draw_frame(window, COLOR_WIDGET_BG);
 
-    gui_surface_draw_str(window->surface, THEME_GRID_X, THEME_LABEL_Y, font_8x8,
+    gui_surface_draw_str_at(window->surface, THEME_GRID_X, THEME_LABEL_Y, font_8x8,
         "Theme", COLOR_WIDGET_FG, COLOR_WIDGET_BG);
-    gui_surface_draw_str(window->surface, WALLPAPER_GRID_X, WALLPAPER_LABEL_Y, font_8x8,
+    gui_surface_draw_str_at(window->surface, WALLPAPER_GRID_X, WALLPAPER_LABEL_Y, font_8x8,
         "Wallpaper", COLOR_WIDGET_FG, COLOR_WIDGET_BG);
-    gui_surface_draw_str(window->surface, PATTERN_GRID_X, PATTERN_LABEL_Y, font_8x8,
+    gui_surface_draw_str_at(window->surface, PATTERN_GRID_X, PATTERN_LABEL_Y, font_8x8,
         "Desktop pattern", COLOR_WIDGET_FG, COLOR_WIDGET_BG);
-    gui_surface_draw_str(window->surface, COLOR1_GRID_X, COLOR1_LABEL_Y, font_8x8,
+    gui_surface_draw_str_at(window->surface, COLOR1_GRID_X, COLOR1_LABEL_Y, font_8x8,
         "Desktop color 1", COLOR_WIDGET_FG, COLOR_WIDGET_BG);
-    gui_surface_draw_str(window->surface, COLOR2_GRID_X, COLOR2_LABEL_Y, font_8x8,
+    gui_surface_draw_str_at(window->surface, COLOR2_GRID_X, COLOR2_LABEL_Y, font_8x8,
         "Desktop color 2", COLOR_WIDGET_FG, COLOR_WIDGET_BG);
 
     gui_grid_fill(&a->pattern_grid, window, COLOR_BORDER);

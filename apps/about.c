@@ -65,7 +65,7 @@ draw_text_sm(int col, int row, const char *text)
     rect_st r = gui_grid_cell_rect(&a->grid, col, row);
     r.width = strlen(text) * 8;
 
-    gui_surface_draw_str(a->window.surface, r.x, r.y, font_8x8,
+    gui_surface_draw_str_at(a->window.surface, r.x, r.y, font_8x8,
         text, COLOR_WIDGET_FG, COLOR_WIDGET_BG);
 
     gui_wm_render_window_region(&a->window, r);
