@@ -75,7 +75,7 @@ draw_char_button(widget_st *widget)
 
     --rect.height;
 
-    gui_surface_draw_str_centered(
+    gui_surface_draw_str_cc(
         a->window.surface,
         rect,
         &fonts[a->current_font],
@@ -111,7 +111,7 @@ draw_font_label(void)
 
     gui_surface_draw_border(a->window.surface, r, COLOR_BORDER);
     gui_surface_draw_rect(a->window.surface, gui_rect_shrink(r, 1), COLOR_WIDGET_BG);
-    gui_surface_draw_str_centered(a->window.surface, r, font_8x16,
+    gui_surface_draw_str_cc(a->window.surface, r, font_8x16,
         fonts[a->current_font].name, COLOR_WIDGET_FG, COLOR_WIDGET_BG);
 
     gui_wm_render_window_region(&a->window, r);

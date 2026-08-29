@@ -75,7 +75,7 @@ draw_month_label(void)
     };
 
     gui_surface_draw_border(a->window.surface, rect, COLOR_BORDER);
-    gui_surface_draw_str_centered(a->window.surface, rect, font_8x16, buf,
+    gui_surface_draw_str_cc(a->window.surface, rect, font_8x16, buf,
         COLOR_WIDGET_FG, COLOR_WIDGET_BG);
     gui_wm_render_window_region(&a->window, rect);
 }
@@ -115,7 +115,7 @@ draw_day_button(widget_st *widget)
 
     char buf[3];
     snprintf(buf, sizeof(buf), "%d", day + 1);
-    gui_surface_draw_str_centered(
+    gui_surface_draw_str_cc(
         widget->window->surface,
         widget->rect,
         widget->font ? widget->font : font_8x16,
@@ -156,7 +156,7 @@ draw_week_bar(void)
         };
 
         gui_surface_draw_border(a->window.surface, rect, COLOR_BORDER);
-        gui_surface_draw_str_centered(a->window.surface, rect, font_8x16,
+        gui_surface_draw_str_cc(a->window.surface, rect, font_8x16,
             TIME_DAY_NAMES_SHORT[y], COLOR_WIDGET_FG, COLOR_WIDGET_BG);
     }
 }

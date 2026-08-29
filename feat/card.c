@@ -148,7 +148,7 @@ card_draw(card_game_st *game, int x, int y, card_t card, int selected)
     gui_surface_draw_str(game->surface, x + 3, y + 2, font_8x8,
         card_rank_str[rank], fg, bg);
 
-    gui_surface_draw_str_centered(game->surface, r, font_8x16,
+    gui_surface_draw_str_cc(game->surface, r, font_8x16,
         card_suit_str[suit], fg, bg);
 
     gui_surface_draw_str(game->surface,

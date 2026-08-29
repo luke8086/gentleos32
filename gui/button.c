@@ -61,7 +61,7 @@ gui_button_draw(widget_st *widget)
             is_pressed ? COLOR_WIDGET_SEL_FG : COLOR_WIDGET_FG
         );
     } else if (widget->label) {
-        gui_surface_draw_str_centered(
+        gui_surface_draw_str_cc(
             widget->window->surface,
             rect,
             widget->font ? widget->font : font_8x16,

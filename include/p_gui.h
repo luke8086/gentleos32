@@ -95,7 +95,7 @@ extern void gui_surface_draw_border(surface_st *surface, rect_st r, uint8_t colo
 extern void gui_surface_draw_rect(surface_st *surface, rect_st r, uint8_t color);
 extern void gui_surface_draw_char(surface_st *surface, uint16_t x, uint16_t y, font_st *font, uint8_t ch, uint8_t fg, uint8_t bg);
 extern void gui_surface_draw_str(surface_st *surface, uint16_t x, uint16_t y, font_st *font, const char *s, uint8_t fg, uint8_t bg);
-extern void gui_surface_draw_str_centered(surface_st *surface, rect_st rect, font_st *font, const char *s, uint8_t fg, uint8_t bg);
+extern void gui_surface_draw_str_cc(surface_st *surface, rect_st rect, font_st *font, const char *s, uint8_t fg, uint8_t bg);
 extern void gui_surface_draw_str_cl(surface_st *surface, rect_st rect, int padding, font_st *font, const char *s, uint8_t fg, uint8_t bg);
 extern void gui_surface_draw_str_cr(surface_st *surface, rect_st rect, int padding, font_st *font, const char *s, uint8_t fg, uint8_t bg);
 extern void gui_surface_draw_bitmap_1bpp(surface_st *surface, rect_st src_rect, int dst_x, int dst_y, bitmap_st *bitmap, uint8_t fill);

@@ -136,7 +136,7 @@ draw_cell(widget_st *widget)
         num_str[0] = '0' + type;
         num_rect = gui_rect_make(rect.x + 1, rect.y, rect.width - 1, rect.height);
 
-        gui_surface_draw_str_centered(a->window.surface, num_rect, font_8x8,
+        gui_surface_draw_str_cc(a->window.surface, num_rect, font_8x8,
             num_str, COLOR_WIDGET_FG, COLOR_WIDGET_BG);
     }
 

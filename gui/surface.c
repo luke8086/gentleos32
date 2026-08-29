@@ -107,7 +107,7 @@ gui_surface_draw_str(surface_st *surface, uint16_t x, uint16_t y,
 }
 
 global void
-gui_surface_draw_str_centered(surface_st *surface, rect_st rect,
+gui_surface_draw_str_cc(surface_st *surface, rect_st rect,
     font_st *font, const char *s, uint8_t fg, uint8_t bg)
 {
     int text_width = strlen(s) * font->size.width;

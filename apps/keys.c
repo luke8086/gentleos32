@@ -183,7 +183,7 @@ draw_cell(cell_st *key, int pressed)
 
     gui_surface_draw_rect(a->window.surface, rect, bg);
     gui_surface_draw_border(a->window.surface, rect, COLOR_BORDER);
-    gui_surface_draw_str_centered(a->window.surface, rect, font_8x8, key->label, fg, bg);
+    gui_surface_draw_str_cc(a->window.surface, rect, font_8x8, key->label, fg, bg);
 
     gui_wm_render_window_region(&a->window, rect);
 }

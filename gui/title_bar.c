@@ -47,7 +47,7 @@ gui_title_bar_draw(widget_st *widget)
     rect = gui_rect_shrink(rect, 1);
     gui_surface_draw_rect(win->surface, rect, bg_color);
 
-    gui_surface_draw_str_centered(win->surface, widget->rect,
+    gui_surface_draw_str_cc(win->surface, widget->rect,
         font_8x16, title, fg_color, bg_color);
 
     gui_wm_render_window_region(widget->window, widget->rect);

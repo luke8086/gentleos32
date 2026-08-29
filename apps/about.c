@@ -104,7 +104,7 @@ draw_top_bar(void)
 
     r = gui_rect_shrink(r, 1);
 
-    gui_surface_draw_str_centered(a->window.surface, r, font_8x16, text,
+    gui_surface_draw_str_cc(a->window.surface, r, font_8x16, text,
         COLOR_WIDGET_FG, COLOR_WIDGET_BG);
 }
 
@@ -120,7 +120,7 @@ draw_bottom_bar(void)
 
     r = gui_rect_shrink(r, 1);
 
-    gui_surface_draw_str_centered(a->window.surface, r, font_8x8, text,
+    gui_surface_draw_str_cc(a->window.surface, r, font_8x8, text,
         COLOR_WIDGET_FG, COLOR_WIDGET_BG);
 
     r.x = (r.width - strlen(text) * 8) / 2;
