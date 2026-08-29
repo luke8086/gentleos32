@@ -42,7 +42,7 @@ enum {
 };
 
 typedef struct {
-    char name[23];
+    char name[31];
     uint8_t type;
     void *addr;
     uint32_t size;

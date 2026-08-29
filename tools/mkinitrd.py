@@ -21,10 +21,10 @@ import shutil
 import struct
 
 MAGIC        = b"IRD1"
-NAME_LEN     = 23
+NAME_LEN     = 31
 ALIGN        = 4
 HEADER_LEN   = 8                   # 4s magic + I count
-ENTRY_LEN    = NAME_LEN + 9        # 23s name + B type + I offset + I size
+ENTRY_LEN    = NAME_LEN + 9        # name + B type + I offset + I size
 
 FILE_TYPE_UNKNOWN   = 0
 FILE_TYPE_BITMAP    = 1
