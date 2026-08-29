@@ -188,7 +188,7 @@ draw_title(void)
     const char *title = get_song_name(a->play_list.cur_index);
 
     gui_surface_draw_rect(a->window.surface, rect, COLOR_WIDGET_BG);
-    gui_surface_draw_str_centered(a->window.surface, rect, font_8x8, title,
+    gui_surface_draw_str_centered(a->window.surface, rect, font_5x8, title,
         COLOR_WIDGET_FG, COLOR_WIDGET_BG);
 
     gui_wm_render_window_region(&a->window, rect);
@@ -208,7 +208,7 @@ draw_time(uint32_t elapsed_ticks)
         MIN(total_secs / 60, 99u), total_secs % 60);
 
     gui_surface_draw_rect(a->window.surface, rect, COLOR_WIDGET_BG);
-    gui_surface_draw_str_centered(a->window.surface, rect, font_8x8, time,
+    gui_surface_draw_str_centered(a->window.surface, rect, font_5x8, time,
         COLOR_WIDGET_FG, COLOR_WIDGET_BG);
 
     gui_wm_render_window_region(&a->window, rect);
@@ -462,7 +462,7 @@ get_play_list_right_label(list_widget_st *list _unsd, int index)
 
     secs = a->song_ticks[index] / TICK_FREQUENCY;
 
-    snprintf(buf, sizeof(buf), "%02u:%02u", MIN(secs / 60, 99u), secs % 60);
+    snprintf(buf, sizeof(buf), "  %02u:%02u", MIN(secs / 60, 99u), secs % 60);
 
     return buf;
 }
