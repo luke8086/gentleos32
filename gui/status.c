@@ -28,8 +28,14 @@ static size_t status_text_len = 0;
 static void
 gui_status_set_text(const char *text)
 {
-    size_t len = strlen(text);
     font_st *font = font_8x16;
+    size_t len;
+
+    if (!text || !text[0]) {
+        text = "Ready";
+    }
+
+    len = strlen(text);
 
     strncpy(status_text, text, sizeof(status_text) - 1);
     status_text[sizeof(status_text) - 1] = 0;
