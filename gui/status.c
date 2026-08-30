@@ -14,7 +14,7 @@ enum {
     TEXT_X = FONT_WIDTH,
     TEXT_Y = (STATUS_HEIGHT - FONT_HEIGHT) / 2 + 1,
 
-    STATUS_TEXT_BUF_SIZE = ((GUI_MIN_WIDTH - PANEL_WIDTH) / FONT_WIDTH) - 2 + 1,
+    STATUS_TEXT_BUF_SIZE = (GUI_MIN_WIDTH / FONT_WIDTH) - 2 + 1,
 };
 
 static surface_st window_surface;
@@ -114,7 +114,7 @@ global void
 gui_status_init(void)
 {
     system_info_st *si = &krn_system_info;
-    int width = si->fb_width - PANEL_WIDTH;
+    int width = si->fb_width;
 
     window_surface.size.width = width;
     window_surface.size.height = STATUS_HEIGHT;

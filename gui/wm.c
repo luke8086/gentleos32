@@ -305,8 +305,10 @@ gui_wm_init(void)
 {
     system_info_st *si = &krn_system_info;
 
-    gui_wm_container.width = si->fb_width - PANEL_WIDTH;
-    gui_wm_container.height = si->fb_height - STATUS_HEIGHT;
+    gui_wm_container.x = 0;
+    gui_wm_container.y = PANEL_HEIGHT;
+    gui_wm_container.width = si->fb_width;
+    gui_wm_container.height = si->fb_height - PANEL_HEIGHT - STATUS_HEIGHT;
     gui_wm_render_wallpaper(gui_wm_container);
 
     gui_status_init();
