@@ -29,6 +29,9 @@ NOTE_TYPES = {
     "128th": 0.03125,
     "256th": 0.015625,
 }
+DEFAULT_PROPS = {
+    "staccato_ratio": 0.5,
+}
 
 def die(msg):
     raise SystemExit(msg)
@@ -91,6 +94,27 @@ def mxml_text(elem, path):
     return child.text.strip() or None
 
 
+def mxml_props(root):
+    props = {}
+
+    for field in root.findall("identification/miscellaneous/miscellaneous-field"):
+        if (field.get("name") or "").strip().lower() != "props":
+            continue
+
+        for item in (field.text or "").split(","):
+            item = item.strip()
+
+            if not item:
+                continue
+
+            (key, sep, value) = item.partition(":")
+            ensure(sep, f"Error: invalid property {item!r}, expected key:value")
+
+            props[key.strip()] = value.strip()
+
+    return props
+
+
 def mxml_note_idx(elem, where):
     steps = {"C": 0, "D": 2, "E": 4, "F": 5, "G": 7, "A": 9, "B": 11}
 
@@ -112,12 +136,13 @@ def mxml_note_idx(elem, where):
     return note_idx
 
 
-def mxml_append_note(notes, held):
+def mxml_append_note(notes, held, props):
     (note_idx, ms, staccato) = held
 
     if staccato and note_idx is not None and ms >= 2:
-        notes.append((note_idx, ms // 2))
-        notes.append((None, ms - ms // 2))
+        note_ms = min(ms - 1, max(1, int(ms * props["staccato_ratio"])))
+        notes.append((note_idx, note_ms))
+        notes.append((None, ms - note_ms))
     else:
         notes.append((note_idx, ms))
 
@@ -151,12 +176,25 @@ def mxml_append_graces(notes, graces, where):
     notes.extend(graces)
 
 
+def load_props(raw_props):
+    ret = dict(**DEFAULT_PROPS)
+
+    if "staccato_ratio" in raw_props:
+        try:
+            ret["staccato_ratio"] = max(0, min(1, float(raw_props["staccato_ratio"])))
+        except ValueError:
+            die(f"Error: invalid value for 'staccato_ratio' prop")
+
+    return ret
+
+
 def process_musicxml(root):
     notes = []
     divisions = None
     tempo = 120.0
     held = None
     graces = []
+    props = load_props(mxml_props(root))
 
     parts = root.findall("part")
     ensure(parts, "Error: score contains no parts")
@@ -200,7 +238,7 @@ def process_musicxml(root):
 
                 if graces:
                     if held is not None:
-                        mxml_append_note(notes, held)
+                        mxml_append_note(notes, held, props)
                         held = None
 
                     mxml_append_graces(notes, graces, loc)
@@ -224,15 +262,15 @@ def process_musicxml(root):
                     held = (note_idx, held[1] + ms, held[2] or staccato)
                 else:
                     if held is not None:
-                        mxml_append_note(notes, held)
+                        mxml_append_note(notes, held, props)
                     held = (note_idx, ms, staccato)
 
                 if "start" not in ties:
-                    mxml_append_note(notes, held)
+                    mxml_append_note(notes, held, props)
                     held = None
 
     if held is not None:
-        mxml_append_note(notes, held)
+        mxml_append_note(notes, held, props)
 
     notes.append((None, 2000))
     notes = merge_rests(notes)
