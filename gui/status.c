@@ -23,42 +23,19 @@ static window_st window;
 static char status_text_tmp[STATUS_TEXT_BUF_SIZE];
 static char status_text[STATUS_TEXT_BUF_SIZE];
 
-static uint8_t status_text_color = 0;
 static size_t status_text_len = 0;
-static uint8_t status_bg_color = 0;
 
 static void
-gui_status_set_bg_color(uint8_t color)
-{
-    if (color == status_bg_color) {
-        return;
-    }
-
-    rect_st bg_rect = {
-        .x = 0,
-        .y = 1,
-        .width = window.rect.width,
-        .height = STATUS_HEIGHT - 1,
-    };
-
-    gui_surface_draw_rect(window.surface, bg_rect, color);
-    gui_wm_render_window_region(&window, bg_rect);
-
-    status_bg_color = color;
-}
-
-static void
-gui_status_set_text(const char *text, uint8_t color)
+gui_status_set_text(const char *text)
 {
     size_t len = strlen(text);
     font_st *font = font_8x16;
 
     strncpy(status_text, text, sizeof(status_text) - 1);
     status_text[sizeof(status_text) - 1] = 0;
-    status_text_color = color;
 
-    gui_surface_draw_str_at(window.surface, TEXT_X, TEXT_Y, font, text, color,
-        status_bg_color);
+    gui_surface_draw_str_at(window.surface, TEXT_X, TEXT_Y, font, text, COLOR_WIDGET_FG,
+        COLOR_WIDGET_BG);
 
     /* If the new text is shorter than previous, clear the remaining space */
     if (len < status_text_len) {
@@ -69,7 +46,7 @@ gui_status_set_text(const char *text, uint8_t color)
             .height = font->size.height,
         };
 
-        gui_surface_draw_rect(window.surface, clear_rect, status_bg_color);
+        gui_surface_draw_rect(window.surface, clear_rect, COLOR_WIDGET_BG);
     }
 
     rect_st text_rect = {
@@ -93,8 +70,7 @@ gui_status_set(const char *fmt, ...)
     (void) vsnprintf(status_text_tmp, sizeof(status_text_tmp), fmt, args);
     va_end(args);
 
-    gui_status_set_bg_color(COLOR_WIDGET_BG);
-    gui_status_set_text(status_text_tmp, COLOR_WIDGET_FG);
+    gui_status_set_text(status_text_tmp);
 }
 
 global void
@@ -116,8 +92,7 @@ gui_status_set_alert(const char *fmt, ...)
     (void) vsnprintf(status_text_tmp, sizeof(status_text_tmp), fmt, args);
     va_end(args);
 
-    gui_status_set_bg_color(COLOR_WIDGET_BG);
-    gui_status_set_text(status_text_tmp, COLOR_ALERT_FG);
+    gui_status_set_text(status_text_tmp);
 
     /* Flush immediately on alerts */
     gui_fb_flush();
@@ -129,11 +104,10 @@ draw_window(window_st *window)
     gui_surface_draw_h_seg(window->surface, 0, 0, window->rect.width, COLOR_BORDER);
 
     rect_st bg = { .x = 0, .y = 1, .width = window->rect.width, .height = STATUS_HEIGHT - 1 };
-    status_bg_color = COLOR_WIDGET_BG;
-    gui_surface_draw_rect(window->surface, bg, status_bg_color);
+    gui_surface_draw_rect(window->surface, bg, COLOR_WIDGET_BG);
 
     status_text_len = 0;
-    gui_status_set_text(status_text, status_text_color);
+    gui_status_set_text(status_text);
 }
 
 global void
