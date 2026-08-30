@@ -133,17 +133,21 @@ def mxml_grace_ms(elem, tempo, where):
 
 
 def mxml_append_graces(notes, graces, where):
-    total_ms = sum(ms for (_, ms) in graces)
+    need_ms = sum(ms for (_, ms) in graces)
+    avail_ms = sum(ms for (_, ms) in notes)
 
-    ensure(notes, f"Error: {where}: grace notes with no preceding note or rest")
+    ensure(avail_ms > need_ms, f"Error: {where}: no time available for grace notes")
 
-    (prev_idx, prev_ms) = notes[-1]
+    while need_ms > 0:
+        (prev_idx, prev_ms) = notes[-1]
 
-    ensure(prev_ms > total_ms,
-        f"Error: {where}: preceding note or rest is only {prev_ms} ms, "
-        f"{total_ms + 1} ms needed for {len(graces)} grace note(s)")
+        if prev_ms > need_ms:
+            notes[-1] = (prev_idx, prev_ms - need_ms)
+            need_ms = 0
+        else:
+            notes.pop()
+            need_ms -= prev_ms
 
-    notes[-1] = (prev_idx, prev_ms - total_ms)
     notes.extend(graces)
 
 
