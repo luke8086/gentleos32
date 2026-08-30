@@ -50,41 +50,6 @@ def note_pitch(note_idx):
     return max(19, min(0xffff, round(16.3515978313 * 2.0 ** (note_idx / 12.0))))
 
 
-def merge_rests(notes):
-    ret = []
-
-    for idx, ms in notes:
-        if idx is None:
-            if not ret:
-                continue
-            if ret[-1][0] is None:
-                ret[-1] = (None, ret[-1][1] + ms)
-                continue
-        ret.append((idx, ms))
-
-    return ret
-
-
-def split_repeated_notes(notes):
-    ret = []
-    count = 0
-
-    for (cur_idx, cur_ms) in notes:
-        (prev_idx, prev_ms) = ret[-1] if ret else (None, 0)
-
-        if cur_idx is not None and prev_idx == cur_idx:
-            ret[-1] = (prev_idx, max(1, prev_ms - MIN_REST_MS))
-            ret.append((None, MIN_REST_MS))
-            count += 1
-
-        ret.append((cur_idx, cur_ms))
-
-    if count:
-        print(f"Split {count} repeated notes")
-
-    return ret
-
-
 def mxml_text(elem, path):
     child = elem.find(path)
 
@@ -136,17 +101,6 @@ def mxml_note_idx(elem, where):
     return note_idx
 
 
-def mxml_append_note(notes, held, props):
-    (note_idx, ms, staccato) = held
-
-    if staccato and note_idx is not None and ms >= 2:
-        note_ms = min(ms - 1, max(1, int(ms * props["staccato_ratio"])))
-        notes.append((note_idx, note_ms))
-        notes.append((None, ms - note_ms))
-    else:
-        notes.append((note_idx, ms))
-
-
 def mxml_grace_ms(elem, tempo, where):
     note_type = mxml_text(elem, "type") or "16th"
 
@@ -157,7 +111,30 @@ def mxml_grace_ms(elem, tempo, where):
     return max(1, round(quarters * 60000.0 / tempo))
 
 
-def mxml_append_graces(notes, graces, where):
+def load_props(raw_props):
+    ret = dict(**DEFAULT_PROPS)
+
+    if "staccato_ratio" in raw_props:
+        try:
+            ret["staccato_ratio"] = max(0, min(1, float(raw_props["staccato_ratio"])))
+        except ValueError:
+            die(f"Error: invalid value for 'staccato_ratio' prop")
+
+    return ret
+
+
+def append_note(notes, held, props):
+    (note_idx, ms, staccato) = held
+
+    if staccato and note_idx is not None and ms >= 2:
+        note_ms = min(ms - 1, max(1, int(ms * props["staccato_ratio"])))
+        notes.append((note_idx, note_ms))
+        notes.append((None, ms - note_ms))
+    else:
+        notes.append((note_idx, ms))
+
+
+def append_graces(notes, graces, where):
     need_ms = sum(ms for (_, ms) in graces)
     avail_ms = sum(ms for (_, ms) in notes)
 
@@ -176,14 +153,37 @@ def mxml_append_graces(notes, graces, where):
     notes.extend(graces)
 
 
-def load_props(raw_props):
-    ret = dict(**DEFAULT_PROPS)
+def merge_rests(notes):
+    ret = []
 
-    if "staccato_ratio" in raw_props:
-        try:
-            ret["staccato_ratio"] = max(0, min(1, float(raw_props["staccato_ratio"])))
-        except ValueError:
-            die(f"Error: invalid value for 'staccato_ratio' prop")
+    for idx, ms in notes:
+        if idx is None:
+            if not ret:
+                continue
+            if ret[-1][0] is None:
+                ret[-1] = (None, ret[-1][1] + ms)
+                continue
+        ret.append((idx, ms))
+
+    return ret
+
+
+def split_repeated_notes(notes):
+    ret = []
+    count = 0
+
+    for (cur_idx, cur_ms) in notes:
+        (prev_idx, prev_ms) = ret[-1] if ret else (None, 0)
+
+        if cur_idx is not None and prev_idx == cur_idx:
+            ret[-1] = (prev_idx, max(1, prev_ms - MIN_REST_MS))
+            ret.append((None, MIN_REST_MS))
+            count += 1
+
+        ret.append((cur_idx, cur_ms))
+
+    if count:
+        print(f"Split {count} repeated notes")
 
     return ret
 
@@ -238,10 +238,10 @@ def process_musicxml(root):
 
                 if graces:
                     if held is not None:
-                        mxml_append_note(notes, held, props)
+                        append_note(notes, held, props)
                         held = None
 
-                    mxml_append_graces(notes, graces, loc)
+                    append_graces(notes, graces, loc)
                     graces = []
 
                 duration = mxml_text(elem, "duration")
@@ -262,15 +262,15 @@ def process_musicxml(root):
                     held = (note_idx, held[1] + ms, held[2] or staccato)
                 else:
                     if held is not None:
-                        mxml_append_note(notes, held, props)
+                        append_note(notes, held, props)
                     held = (note_idx, ms, staccato)
 
                 if "start" not in ties:
-                    mxml_append_note(notes, held, props)
+                    append_note(notes, held, props)
                     held = None
 
     if held is not None:
-        mxml_append_note(notes, held, props)
+        append_note(notes, held, props)
 
     notes.append((None, 2000))
     notes = merge_rests(notes)
