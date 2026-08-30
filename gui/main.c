@@ -109,6 +109,11 @@ gui_handle_key(event_st event)
         return 1;
     }
 
+    if (key_code == KEY_A) {
+        gui_launch_app(&app_launcher);
+        return 1;
+    }
+
     return 0;
 }
 

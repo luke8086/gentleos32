@@ -18,6 +18,8 @@ extern app_st app_freecell;
 extern app_st app_keys;
 /* apps/klondike.c */
 extern app_st app_klondike;
+/* apps/launcher.c */
+extern app_st app_launcher;
 /* apps/logview.c */
 extern app_st app_logview;
 /* apps/mahjong.c */
