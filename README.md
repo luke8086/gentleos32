@@ -29,6 +29,10 @@ To clean up docker artifacts, run:
 docker compose down --rmi all
 ```
 
+## Testing
+
+The easiest way to test is to open `gentleos32-emu.html` in a browser.
+
 ## Adding wallpapers
 
 Wallpapers can be provided using an initial RAM disk (initrd).

@@ -6,6 +6,7 @@
 /gentleos.bin
 /gentleos.rd
 /gentleos32-*.img
+/gentleos32-emu.html
 /misc/grub.cfg
 /misc/menu.lst
 /tmp/*

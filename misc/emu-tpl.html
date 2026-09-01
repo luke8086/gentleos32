@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="data:," />
+
+<title>GentleOS/32 - Fantasy OS for vintage PCs</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        font-family: -apple-system, system-ui, sans-serif;
+        font-size: 14px;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: #ccc;
+    }
+
+    main {
+        max-width: 642px;
+        margin: 2rem auto;
+    }
+
+    #emu-starter {
+        display: flex;
+        width: 640px;
+        height: 480px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    #emu-container {
+        width: fit-content;
+        overflow: hidden;
+        border: 1px solid black;
+        margin: auto;
+        color: #ccc;
+        background: black;
+    }
+
+    #emu-text {
+        font: 10px monospace;
+        white-space: pre;
+    }
+
+    #emu-canvas {
+        display: none;
+        image-rendering: pixelated;
+    }
+
+    #emu-log {
+        min-height: 100px;
+        border: 1px solid black;
+        margin-top: 20px;
+        font: 10px monospace;
+        white-space: pre;
+        color: #ccc;
+        background: black;
+        display: none;
+    }
+</style>
+
+<main>
+    <div id="emu-container">
+        <div id="emu-starter" onclick="emu_start()">
+            Click to start emulator
+        </div>
+
+        <div id="emu-text"></div>
+        <canvas id="emu-canvas"></canvas>
+    </div>
+
+    <div id="emu-log"></div>
+</main>
+
+<script>
+const emu_decode_asset = function(name) {
+    const bin = atob(emu_assets[name]);
+    const buf = new Uint8Array(bin.length);
+
+    for (let i = 0; i < bin.length; ++i) {
+        buf[i] = bin.charCodeAt(i);
+    }
+
+    return buf.buffer;
+};
+
+const emu_start = function() {
+    document.getElementById("emu-starter").remove();
+    document.getElementById("emu-log").style.display = "block";
+
+    window.v86 = new V86({
+        wasm_fn: (env) => WebAssembly.instantiate(emu_decode_asset("wasm"), env).then((res) => res.instance.exports),
+        bios: { buffer: emu_decode_asset("bios") },
+        vga_bios: { buffer: emu_decode_asset("vga_bios") },
+        memory_size: 4 * 1024 * 1024,
+        vga_memory_size: 2 * 1024 * 1024,
+        screen: { container: document.getElementById("emu-container") },
+        autostart: true,
+        hda: { buffer: emu_decode_asset("hda") },
+        boot_order: 0x132,
+    });
+
+    let debug_line = "";
+
+    v86.add_listener("serial0-output-byte", ((byte) => {
+        if (byte == 0x0d) {
+            // skip \r
+        } {
+            document.getElementById("emu-log").textContent += String.fromCharCode(byte);
+        }
+    }))
+
+    v86.add_listener("emulator-loaded", (() => {
+        const spk = v86.speaker_adapter?.pcspeaker;
+
+        if (spk) {
+            spk.node_oscillator.connect(spk.mixer_connection.node_gain_right);
+        }
+    }))
+
+    v86.add_listener("screen-set-size", ((args) => {
+        const width = args[0];
+        const height = args[1];
+        const bpp = args[2];
+
+        if (!bpp) {
+            // Text mode
+            v86.screen_set_scale(1, 1);
+            return;
+        }
+
+        const my_scale = Math.max(1, Math.round(640 / width));
+
+        // Revert logic of ScreenAdapter.set_size_graphical
+        const dpr = window.devicePixelRatio || 1;
+        const base_scale = (width <= 640 &&
+            width * 2 < window.innerWidth * dpr &&
+            height * 2 < window.innerHeight * dpr) ? 2 : 1;
+        const scale = my_scale / base_scale;
+
+        v86.screen_set_scale(scale, scale);
+    }))
+}
+</script>
+
+<script>
+emu_assets = (__ASSETS__);
+</script>
+
+<script>
+__LIBS__
+</script>

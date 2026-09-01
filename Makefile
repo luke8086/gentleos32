@@ -14,6 +14,7 @@ KERNEL_LOMEM_BIN    := $(BUILDDIR)/kernel-lomem.bin
 DISK_IMAGE      := gentleos32-disk.img
 GRUB_IMAGE      := gentleos32-grub.img
 WEB_IMAGE       := gentleos32-web.img
+EMU_PAGE        := gentleos32-emu.html
 DISK_FS_OFFSET  := 1048576
 
 KERNEL_HIMEM_LD := $(BASEDIR)/misc/kernel-himem.ld
@@ -84,8 +85,10 @@ disks: $(KERNEL_HIMEM_BIN) $(KERNEL_LOMEM_BIN) $(BOOT_BIN)
 	./tools/mkinitrd.py $(INITRD_OBJS) -o $(BUILDDIR)/gentleos-web.rd --disk-image $(WEB_IMAGE)
 	./tools/padfile.py $(WEB_IMAGE) 1048576
 
+	./tools/mkemu.py $(WEB_IMAGE) $(EMU_PAGE)
+
 clean:
-	rm -rf $(BUILDDIR) $(KERNEL_HIMEM_BIN) $(DISK_IMAGE) $(GRUB_IMAGE) $(WEB_IMAGE)
+	rm -rf $(BUILDDIR) $(KERNEL_HIMEM_BIN) $(DISK_IMAGE) $(GRUB_IMAGE) $(WEB_IMAGE) $(EMU_PAGE)
 
 $(OBJDIRS):
 	@mkdir -p $@
