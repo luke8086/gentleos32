@@ -60,8 +60,8 @@ enum {
     TRANSPORT_BUTTON_PAUSE,
     TRANSPORT_BUTTON_STOP,
     TRANSPORT_BUTTON_NEXT,
+    TRANSPORT_BUTTON_AUTOPLAY,
     TRANSPORT_BUTTON_SHUFFLE,
-    TRANSPORT_BUTTON_LOOP,
 };
 
 enum {
@@ -103,8 +103,8 @@ static bitmap_st *transport_button_icons[TRANSPORT_BUTTON_COUNT] = {
     &icon_player_pause,
     &icon_player_stop,
     &icon_player_next,
+    &icon_player_autoplay,
     &icon_player_shuffle,
-    &icon_player_loop,
 };
 
 static const char *
@@ -342,8 +342,8 @@ advance_song(void)
     int cur_index = a->play_list.cur_index;
     int new_index;
 
-    if (a->transport_buttons[TRANSPORT_BUTTON_LOOP].active) {
-        set_song(cur_index, 1);
+    if (!a->transport_buttons[TRANSPORT_BUTTON_AUTOPLAY].active) {
+        stop_song();
         return;
     }
 
@@ -383,39 +383,17 @@ on_play_click(void)
 }
 
 static void
-on_shuffle_click(void)
-{
-    app_state_st *a = app_state;
-    widget_st *shuffle_btn = &a->transport_buttons[TRANSPORT_BUTTON_SHUFFLE];
-    widget_st *loop_btn = &a->transport_buttons[TRANSPORT_BUTTON_LOOP];
-
-    shuffle_btn->active = !shuffle_btn->active;
-
-    if (shuffle_btn->active) {
-        loop_btn->active = 0;
-        gui_widget_draw(loop_btn);
-    }
-}
-
-static void
-on_loop_click(void)
-{
-    app_state_st *a = app_state;
-    widget_st *shuffle_btn = &a->transport_buttons[TRANSPORT_BUTTON_SHUFFLE];
-    widget_st *loop_btn = &a->transport_buttons[TRANSPORT_BUTTON_LOOP];
-
-    loop_btn->active = !loop_btn->active;
-
-    if (loop_btn->active) {
-        shuffle_btn->active = 0;
-        gui_widget_draw(shuffle_btn);
-    }
-}
-
-static void
 on_progress_bar_down(progress_bar_st *bar _unsd, int value)
 {
     seek_song((uint32_t)value);
+}
+
+static void
+toggle_mode(widget_st *widget, const char *name)
+{
+    widget->active = !widget->active;
+
+    gui_status_set("%s %s", name, widget->active ? "enabled" : "disabled");
 }
 
 static void
@@ -429,8 +407,8 @@ on_button_down(widget_st *widget, event_st event, point_st pos)
     case TRANSPORT_BUTTON_PAUSE: pause_song(); break;
     case TRANSPORT_BUTTON_STOP: stop_song(); break;
     case TRANSPORT_BUTTON_NEXT: set_song(a->play_list.cur_index + 1, 0); break;
-    case TRANSPORT_BUTTON_SHUFFLE: on_shuffle_click(); break;
-    case TRANSPORT_BUTTON_LOOP: on_loop_click(); break;
+    case TRANSPORT_BUTTON_AUTOPLAY: toggle_mode(widget, "Autoplay"); break;
+    case TRANSPORT_BUTTON_SHUFFLE: toggle_mode(widget, "Shuffle"); break;
     }
 
     gui_button_on_pointer_down(widget, event, pos);
@@ -612,6 +590,8 @@ init_transport_buttons(void)
 
         gui_window_add_widget(&a->window, button);
     }
+
+    a->transport_buttons[TRANSPORT_BUTTON_AUTOPLAY].active = 1;
 }
 
 static void

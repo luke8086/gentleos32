@@ -43,7 +43,7 @@ extern bitmap_st bitmap_pattern_14;
 extern bitmap_st bitmap_pattern_15;
 extern bitmap_st bitmap_pattern_16;
 extern bitmap_st bitmap_pattern_card;
-extern bitmap_st icon_player_loop;
+extern bitmap_st icon_player_autoplay;
 extern bitmap_st icon_player_next;
 extern bitmap_st icon_player_pause;
 extern bitmap_st icon_player_play;
