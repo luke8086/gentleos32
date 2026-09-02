@@ -33,18 +33,52 @@ docker compose down --rmi all
 
 The easiest way to test is to open `gentleos32-emu.html` in a browser.
 
-## Adding wallpapers
+## Adding files
 
-Wallpapers can be provided using an initial RAM disk (initrd).
-To create it and install in a disk image, run:
+Additional assets like wallpapers and songs can be provided
+using an initial RAM disk (initrd).
+
+To create one and install in a disk image, run:
 
 ```bash
-uv run tools/mkinitrd.py image.png --disk-image gentleos32-disk.img
+uv run tools/mkinitrd.py [FILES] --disk-image gentleos32-disk.img
 ```
 
-For best results, save the images using an indexed mode, using
-only standard EGA/VGA colors. In GIMP you can use the provided
-[VGA palette](misc/vga-256.gpl).
+## Adding wallpapers
+
+To add a wallpaper, save it in PNG/JPG/GIF/BMP/PPM format
+and add to initrd.
+
+The image must match your screen resolution.
+
+The image will be automatically converted to 256-color mode.
+
+In planar video mode (the default one), it'll be displayed using only 16 colors.
+
+For best results, in GIMP you can use an indexed mode with the provided
+[256-color](misc/vga-256.gpl) and [16-color](misc/vga-16.gpl) palettes.
+
+In the special case where the image is black and white, it'll be stored
+in 1bpp mode to conserve memory, and it'll be rendered using colors
+editable in settings.
+
+## Adding songs
+
+To add a song, save it as an uncompressed MusicXML file,
+convert to the custom SPK format, and add to initrd:
+
+```bash
+uv run tools/mkspk.py -i song.musicxml -o song.spk
+```
+
+Only a very limited subset of MusicXML is supported:
+plain notes, grace notes, ties, staccato dots and tempo markings.
+Songs must only have a single staff with a single voice, and no chords.
+
+Only files exported from MuseScore were tested, other tools may or may not work.
+
+You can also edit SPK files directly, they're plain text consisting
+of (pitch, milliseconds) pairs, and the song title metadata.
 
 ## Attributions
 
