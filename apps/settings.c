@@ -191,6 +191,29 @@ load_wallpapers(void)
     }
 }
 
+static void
+set_pattern(int index)
+{
+    app_state_st *a = app_state;
+    widget_st *prev = a->active_pattern_button;
+
+    gui_wm_pattern = patterns[index];
+    a->active_pattern_button = &a->pattern_buttons[index];
+
+    if (prev && prev != a->active_pattern_button) {
+        gui_widget_draw(prev);
+    }
+
+    gui_widget_draw(a->active_pattern_button);
+}
+
+static void
+clear_wallpaper(void)
+{
+    gui_wm_wallpaper = NULL;
+    gui_list_widget_set_index(&app_state->wallpaper_list, 0);
+}
+
 static const char *
 get_theme_label(list_widget_st *list _unsd, int index)
 {
@@ -227,6 +250,11 @@ on_wallpaper_select(list_widget_st *list _unsd, int index)
     }
 
     gui_wm_wallpaper = a->wallpapers[index];
+
+    if (gui_wm_wallpaper) {
+        set_pattern(0);
+    }
+
     gui_wm_render_desktop_region(gui_wm_container, NULL);
 }
 
@@ -258,18 +286,11 @@ draw_pattern_button(widget_st *widget)
 static void
 on_pattern_button_press(widget_st *widget, event_st event _unsd, point_st pos _unsd)
 {
-    app_state_st *a = app_state;
+    set_pattern(widget->tag1);
 
-    widget_st *prev = a->active_pattern_button;
-    a->active_pattern_button = widget;
-
-    gui_wm_pattern = patterns[widget->tag1];
-
-    if (prev && prev != widget) {
-        gui_widget_draw(prev);
+    if (gui_wm_pattern) {
+        clear_wallpaper();
     }
-
-    gui_widget_draw(widget);
 
     gui_wm_render_desktop_region(gui_wm_container, NULL);
 }
