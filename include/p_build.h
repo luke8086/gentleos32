@@ -3,7 +3,6 @@ extern bitmap_st icon_blackjack;
 extern bitmap_st icon_freecell;
 extern bitmap_st icon_github;
 extern bitmap_st icon_klondike;
-extern bitmap_st icon_mahjong;
 extern bitmap_st icon_mines;
 extern bitmap_st icon_pairs;
 extern bitmap_st icon_patterns;
