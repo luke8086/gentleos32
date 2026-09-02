@@ -2,7 +2,7 @@
  * Copyright (c) 2026 luke8086
  * Distributed under the terms of GPL-2 License
  *
- * File: patterns.c - Background pattern app
+ * File: settings.c - Settings app
  */
 
 #include <gui.h>
@@ -359,7 +359,7 @@ static void
 close_window(window_st *window _unsd)
 {
     gui_wm_remove_window(window);
-    app_patterns.main_window = NULL;
+    app_settings.main_window = NULL;
 
     heap_free(app_state);
     app_state = NULL;
@@ -376,7 +376,7 @@ init_window(void)
     a->window_surface.pixels = a->window_pixels;
 
     a->window.surface = &a->window_surface;
-    a->window.title = "Patterns";
+    a->window.title = "Settings";
     a->window.widgets = a->widgets;
     a->window.widgets_capacity = sizeof(a->widgets) / sizeof(a->widgets[0]);
     a->window.draw = draw_window;
@@ -501,7 +501,7 @@ init_app(void)
 {
     ASSERT(!app_state);
 
-    app_state = heap_alloc(sizeof(app_state_st), "Patterns app", 0);
+    app_state = heap_alloc(sizeof(app_state_st), "Settings app", 0);
 
     if (!app_state) {
         return E_NOT_ENOUGH_MEMORY;
@@ -519,12 +519,12 @@ init_app(void)
     init_color_buttons(&app_state->color2_grid, app_state->color2_buttons,
         COLOR2_GRID_X, COLOR2_GRID_Y, on_color2_button_press);
 
-    app_patterns.main_window = &app_state->window;
+    app_settings.main_window = &app_state->window;
 
     return E_OK;
 }
 
-global app_st app_patterns = {
-    .icon = &icon_patterns,
+global app_st app_settings = {
+    .icon = &icon_settings,
     .init = init_app,
 };
