@@ -8,12 +8,21 @@
 #include <gui.h>
 
 enum {
+    LINE_DISPLAY,
+    LINE_CPU_USAGE,
+    LINE_MEM_TOTAL,
+    LINE_MEM_USED,
+    LINE_MEM_AVAIL,
+    LINE_COUNT,
+};
+
+enum {
     TOP_BAR_Y = TITLE_BAR_HEIGHT,
     TOP_BAR_HEIGHT = 36,
 
     GRID_CELL_WIDTH = 7,
     GRID_CELL_HEIGHT = 15,
-    GRID_ROWS = 5,
+    GRID_ROWS = LINE_COUNT,
     GRID_COLS = 27,
     GRID_CELLS_COUNT = (GRID_ROWS * GRID_COLS),
     GRID_BORDER = 1,
@@ -28,10 +37,6 @@ enum {
     LABEL_COL = 2,
     VALUE_COL = 11,
     VALUE_LEN = GRID_COLS - VALUE_COL - 2,
-
-    CPU_USAGE_ROW = 1,
-    MEM_USED_ROW = 3,
-    MEM_AVAIL_ROW = 4,
 
     REFRESH_TICKS = TICK_FREQUENCY, /* 1s */
 };
@@ -74,7 +79,7 @@ draw_cpu_usage(void)
     static char buf[8];
 
     snprintf(buf, sizeof(buf), "%u%%   ", krn_timer_get_cpu_usage());
-    draw_text_sm(VALUE_COL, CPU_USAGE_ROW, buf);
+    draw_text_sm(VALUE_COL, LINE_CPU_USAGE, buf);
 }
 
 static void
@@ -83,10 +88,10 @@ draw_mem_usage(void)
     static char buf[VALUE_LEN + 1];
 
     snprintf(buf, sizeof(buf), "%u KB   ", krn_system_get_used_mem() >> 10);
-    draw_text_sm(VALUE_COL, MEM_USED_ROW, buf);
+    draw_text_sm(VALUE_COL, LINE_MEM_USED, buf);
 
     snprintf(buf, sizeof(buf), "%u KB   ", krn_system_get_avail_mem() >> 10);
-    draw_text_sm(VALUE_COL, MEM_AVAIL_ROW, buf);
+    draw_text_sm(VALUE_COL, LINE_MEM_AVAIL, buf);
 }
 
 static void
@@ -113,22 +118,21 @@ draw_info(void)
     system_info_st *si = &krn_system_info;
     rect_st r = gui_grid_rect(&a->grid);
     static char buf[VALUE_LEN + 1];
-    int line = 0;
 
     snprintf(buf, sizeof(buf), "%dx%dx%d", si->fb_width, si->fb_height, 1 << si->fb_bpp);
 
-    draw_text_sm(LABEL_COL, line, "Display:");
-    draw_text_sm(VALUE_COL, line++, buf);
+    draw_text_sm(LABEL_COL, LINE_DISPLAY, "Display:");
+    draw_text_sm(VALUE_COL, LINE_DISPLAY, buf);
 
-    draw_text_sm(LABEL_COL, line++, "CPU:");
+    draw_text_sm(LABEL_COL, LINE_CPU_USAGE, "CPU:");
     draw_cpu_usage();
 
     snprintf(buf, sizeof(buf), "%u KB", krn_system_get_total_mem() >> 10);
-    draw_text_sm(LABEL_COL, line, "Mem:");
-    draw_text_sm(VALUE_COL, line++, buf);
+    draw_text_sm(LABEL_COL, LINE_MEM_TOTAL, "Mem:");
+    draw_text_sm(VALUE_COL, LINE_MEM_TOTAL, buf);
 
-    draw_text_sm(LABEL_COL, line++, "Used:");
-    draw_text_sm(LABEL_COL, line++, "Avail:");
+    draw_text_sm(LABEL_COL, LINE_MEM_USED, "Used:");
+    draw_text_sm(LABEL_COL, LINE_MEM_AVAIL, "Avail:");
     draw_mem_usage();
 
     draw_top_bar();
