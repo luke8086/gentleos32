@@ -245,7 +245,19 @@ def is_native_image(image):
     return magic == 0x1badb002
 
 
-def install_initrd_native(disk_image_path, image, initrd):
+def pad_image_to_cylinder(image):
+    heads = 16
+    spt = 63
+    cyl_size = SECTOR_LEN * heads * spt
+    cyl_count = max(1, (len(image) + cyl_size - 1) // cyl_size)
+    size = cyl_count * cyl_size
+
+    print("Disk image padded from %u B to %u B (%u cylinders)" % (len(image), size, cyl_count))
+
+    return image + b"\0" * (size - len(image))
+
+
+def install_initrd_native(disk_image_path, image, initrd, pad):
     kernel_offset = get_kernel_offset_in_image(image)
     kernel_sectors, = struct.unpack_from("<H", image, SECTOR_LEN * 2)
     kernel_end = kernel_offset + kernel_sectors * SECTOR_LEN
@@ -264,6 +276,9 @@ def install_initrd_native(disk_image_path, image, initrd):
     initrd_sectors_offset = SECTOR_LEN * 2 + 2
     struct.pack_into("<H", image, initrd_sectors_offset, initrd_sectors)
 
+    if pad:
+        image = pad_image_to_cylinder(image)
+
     with open(disk_image_path, "wb") as f:
         f.write(image)
 
@@ -279,7 +294,7 @@ def install_initrd_grub(disk_image_path, initrd_path):
     os.system(cmd)
 
 
-def install_initrd(disk_image_path, initrd, initrd_path):
+def install_initrd(disk_image_path, initrd, initrd_path, pad):
     if not os.path.exists(disk_image_path):
         die("Error: disk image not found")
 
@@ -287,7 +302,7 @@ def install_initrd(disk_image_path, initrd, initrd_path):
         image = f.read()
 
     if is_native_image(image):
-        install_initrd_native(disk_image_path, image, initrd)
+        install_initrd_native(disk_image_path, image, initrd, pad)
     else:
         install_initrd_grub(disk_image_path, initrd_path)
 
@@ -299,6 +314,8 @@ def main():
     parser.add_argument("--disk-image", metavar="PATH", help="disk image to install initrd into")
     parser.add_argument("-o", "--output", metavar="PATH", default=INITRD_PATH,
         help="path to save the initrd to (default: %s)" % INITRD_PATH)
+    parser.add_argument("--pad", action="store_true",
+        help="pad the native disk image to a whole cylinder, as required by emulators")
     args = parser.parse_args()
 
     files = []
@@ -327,7 +344,7 @@ def main():
     print(f"Initrd saved to {args.output}")
 
     if args.disk_image is not None:
-        install_initrd(args.disk_image, image, args.output)
+        install_initrd(args.disk_image, image, args.output, args.pad)
 
 
 if __name__ == "__main__":
