@@ -23,9 +23,10 @@ global uint32_t
 krn_system_get_used_mem(void)
 {
     uint32_t static_mem = ((uint32_t)&krn_link_end - (uint32_t)&krn_link_start);
+    uint32_t initrd_mem = krn_system_info.initrd_size;
     uint32_t heap_mem = heap_get_used_mem();
 
-    return static_mem + heap_mem;
+    return static_mem + initrd_mem + heap_mem;
 }
 
 global uint32_t
