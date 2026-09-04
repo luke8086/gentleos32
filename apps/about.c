@@ -22,11 +22,8 @@ enum {
     GRID_X = 0,
     GRID_Y = TOP_BAR_Y + TOP_BAR_HEIGHT + 15,
 
-    BOTTOM_BAR_Y = GRID_Y + GRID_HEIGHT,
-    BOTTOM_BAR_HEIGHT = TOP_BAR_HEIGHT,
-
     WINDOW_WIDTH = GRID_X + GRID_WIDTH,
-    WINDOW_HEIGHT = BOTTOM_BAR_Y + BOTTOM_BAR_HEIGHT + 1,
+    WINDOW_HEIGHT = GRID_Y + GRID_HEIGHT + 1,
 
     LABEL_COL = 2,
     VALUE_COL = 11,
@@ -109,28 +106,6 @@ draw_top_bar(void)
 }
 
 static void
-draw_bottom_bar(void)
-{
-    app_state_st *a = app_state;
-
-    const char *text = "   luke8086/gentleos32";
-    rect_st r = gui_rect_make(0, BOTTOM_BAR_Y, WINDOW_WIDTH, BOTTOM_BAR_HEIGHT);
-
-    gui_surface_draw_h_seg(a->window.surface, r.x, r.y, r.width, COLOR_BORDER);
-
-    r = gui_rect_shrink(r, 1);
-
-    gui_surface_draw_str_cc(a->window.surface, r, font_8x8, text,
-        COLOR_WIDGET_FG, COLOR_WIDGET_BG);
-
-    r.x = (r.width - strlen(text) * 8) / 2;
-    r.width = icon_github.size.width;
-
-    gui_surface_draw_bitmap_centered(a->window.surface, r, &icon_github,
-        COLOR_WIDGET_FG);
-}
-
-static void
 draw_info(void)
 {
     app_state_st *a = app_state;
@@ -157,7 +132,6 @@ draw_info(void)
     draw_mem_usage();
 
     draw_top_bar();
-    draw_bottom_bar();
 
     gui_wm_render_window_region(&a->window, r);
 }
