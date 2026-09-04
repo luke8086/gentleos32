@@ -8,6 +8,8 @@
 #include <gui.h>
 
 enum {
+    LINE_SYSTEM,
+    LINE_SEP,
     LINE_DISPLAY,
     LINE_CPU_USAGE,
     LINE_MEM_TOTAL,
@@ -17,19 +19,16 @@ enum {
 };
 
 enum {
-    TOP_BAR_Y = TITLE_BAR_HEIGHT,
-    TOP_BAR_HEIGHT = 36,
-
     GRID_CELL_WIDTH = 7,
     GRID_CELL_HEIGHT = 15,
     GRID_ROWS = LINE_COUNT,
-    GRID_COLS = 27,
+    GRID_COLS = 24,
     GRID_CELLS_COUNT = (GRID_ROWS * GRID_COLS),
     GRID_BORDER = 1,
     GRID_WIDTH = GRID_WIDTH_SPACED(GRID_CELL_WIDTH, GRID_COLS, GRID_BORDER),
     GRID_HEIGHT = GRID_HEIGHT_SPACED(GRID_CELL_HEIGHT, GRID_ROWS, GRID_BORDER) + 7,
     GRID_X = 0,
-    GRID_Y = TOP_BAR_Y + TOP_BAR_HEIGHT + 15,
+    GRID_Y = TITLE_BAR_HEIGHT + 14,
 
     WINDOW_WIDTH = GRID_X + GRID_WIDTH,
     WINDOW_HEIGHT = GRID_Y + GRID_HEIGHT + 1,
@@ -56,7 +55,7 @@ typedef struct {
 static app_state_st *app_state = NULL;
 
 static void
-draw_text_sm(int col, int row, const char *text)
+draw_text(int col, int row, const char *text)
 {
     app_state_st *a = app_state;
 
@@ -79,7 +78,7 @@ draw_cpu_usage(void)
     static char buf[8];
 
     snprintf(buf, sizeof(buf), "%u%%   ", krn_timer_get_cpu_usage());
-    draw_text_sm(VALUE_COL, LINE_CPU_USAGE, buf);
+    draw_text(VALUE_COL, LINE_CPU_USAGE, buf);
 }
 
 static void
@@ -88,26 +87,10 @@ draw_mem_usage(void)
     static char buf[VALUE_LEN + 1];
 
     snprintf(buf, sizeof(buf), "%u KB   ", krn_system_get_used_mem() >> 10);
-    draw_text_sm(VALUE_COL, LINE_MEM_USED, buf);
+    draw_text(VALUE_COL, LINE_MEM_USED, buf);
 
     snprintf(buf, sizeof(buf), "%u KB   ", krn_system_get_avail_mem() >> 10);
-    draw_text_sm(VALUE_COL, LINE_MEM_AVAIL, buf);
-}
-
-static void
-draw_top_bar(void)
-{
-    app_state_st *a = app_state;
-
-    const char *text = "-=[ GENTLE OS / 32 ]=-";
-    rect_st r = gui_rect_make(0, TOP_BAR_Y, WINDOW_WIDTH, TOP_BAR_HEIGHT);
-
-    gui_surface_draw_h_seg(a->window.surface, r.x, r.y + r.height, r.width, COLOR_BORDER);
-
-    r = gui_rect_shrink(r, 1);
-
-    gui_surface_draw_str_cc(a->window.surface, r, font_8x16, text,
-        COLOR_WIDGET_FG, COLOR_WIDGET_BG);
+    draw_text(VALUE_COL, LINE_MEM_AVAIL, buf);
 }
 
 static void
@@ -119,23 +102,24 @@ draw_info(void)
     rect_st r = gui_grid_rect(&a->grid);
     static char buf[VALUE_LEN + 1];
 
+    draw_text(LABEL_COL, LINE_SYSTEM, "System:");
+    draw_text(VALUE_COL, LINE_SYSTEM, "GentleOS/32");
+    draw_text(LABEL_COL, LINE_SEP,    "--------------------");
+
     snprintf(buf, sizeof(buf), "%dx%dx%d", si->fb_width, si->fb_height, 1 << si->fb_bpp);
+    draw_text(LABEL_COL, LINE_DISPLAY, "Display:");
+    draw_text(VALUE_COL, LINE_DISPLAY, buf);
 
-    draw_text_sm(LABEL_COL, LINE_DISPLAY, "Display:");
-    draw_text_sm(VALUE_COL, LINE_DISPLAY, buf);
-
-    draw_text_sm(LABEL_COL, LINE_CPU_USAGE, "CPU:");
+    draw_text(LABEL_COL, LINE_CPU_USAGE, "CPU:");
     draw_cpu_usage();
 
     snprintf(buf, sizeof(buf), "%u KB", krn_system_get_total_mem() >> 10);
-    draw_text_sm(LABEL_COL, LINE_MEM_TOTAL, "Mem:");
-    draw_text_sm(VALUE_COL, LINE_MEM_TOTAL, buf);
+    draw_text(LABEL_COL, LINE_MEM_TOTAL, "Mem:");
+    draw_text(VALUE_COL, LINE_MEM_TOTAL, buf);
 
-    draw_text_sm(LABEL_COL, LINE_MEM_USED, "Used:");
-    draw_text_sm(LABEL_COL, LINE_MEM_AVAIL, "Avail:");
+    draw_text(LABEL_COL, LINE_MEM_USED, "Used:");
+    draw_text(LABEL_COL, LINE_MEM_AVAIL, "Avail:");
     draw_mem_usage();
-
-    draw_top_bar();
 
     gui_wm_render_window_region(&a->window, r);
 }
