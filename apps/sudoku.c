@@ -15,6 +15,7 @@ enum {
     GRID_CELL_COUNT = GRID_ROWS * GRID_COLS,
     GRID_BORDER = 1,
     GRID_BOX_SIZE = 3,
+    GRID_BOX_COUNT = GRID_BOX_SIZE * GRID_BOX_SIZE,
     GRID_BOX_GAP = 1,
     GRID_WIDTH = GRID_WIDTH_SPACED(GRID_CELL_WIDTH, GRID_COLS, GRID_BORDER) + 2 * GRID_BOX_GAP,
     GRID_HEIGHT = GRID_HEIGHT_SPACED(GRID_CELL_HEIGHT, GRID_ROWS, GRID_BORDER) + 2 * GRID_BOX_GAP,
@@ -43,6 +44,7 @@ typedef struct {
     grid_st grid;
 
     uint8_t digits[GRID_COLS][GRID_ROWS];
+    uint8_t givens[GRID_COLS][GRID_ROWS];
 
     widget_st *active_cell;
 } app_state_st;
@@ -167,16 +169,47 @@ update_status(void)
 }
 
 static void
-generate_board(void)
+generate_solved_board(void)
+{
+    app_state_st *a = app_state;
+    int i, row, col, idx;
+    uint8_t digit_map[GRID_ROWS];
+
+    for (i = 0; i < GRID_ROWS; ++i) {
+        digit_map[i] = i + 1;
+    }
+
+    for (row = 0; row < GRID_ROWS; ++row) {
+        for (col = 0; col < GRID_COLS; ++col) {
+            idx = (row * GRID_BOX_SIZE + row / GRID_BOX_SIZE + col) % GRID_ROWS;
+
+            a->digits[col][row] = digit_map[idx];
+        }
+    }
+}
+
+static void
+clear_solution(void)
 {
     app_state_st *a = app_state;
     int row, col;
 
     for (row = 0; row < GRID_ROWS; ++row) {
         for (col = 0; col < GRID_COLS; ++col) {
-            a->digits[col][row] = 0;
+            a->givens[col][row] = 1;
         }
     }
+
+    a->givens[GRID_COLS - 1][GRID_ROWS - 1] = 0;
+    a->digits[GRID_COLS - 1][GRID_ROWS - 1] = 0;
+}
+
+
+static void
+generate_board(void)
+{
+    generate_solved_board();
+    clear_solution();
 }
 
 static void
@@ -187,9 +220,10 @@ draw_cell(widget_st *widget)
     int idx = widget->tag1;
     int col = idx % GRID_COLS;
     int row = idx / GRID_COLS;
+    int is_given = a->givens[col][row];
     uint8_t digit = a->digits[col][row];
-    uint8_t bg = COLOR_WIDGET_BG;
-    uint8_t fg = COLOR_WIDGET_FG;
+    uint8_t bg = is_given ? COLOR_WIDGET_SEL_BG : COLOR_WIDGET_BG;
+    uint8_t fg = is_given ? COLOR_WIDGET_SEL_FG : COLOR_WIDGET_FG;
     rect_st rect = widget->rect;
     char str[2] = { 0, 0 };
 
@@ -200,7 +234,7 @@ draw_cell(widget_st *widget)
         gui_surface_draw_rect(a->window.surface, rect, bg);
     }
 
-    if (digit) {
+    if (is_given || digit) {
         str[0] = '0' + digit;
         gui_surface_draw_str_cc(a->window.surface, rect, font_8x16, str, fg, bg);
     }
@@ -300,7 +334,7 @@ on_key_down(window_st *window _unsd, event_st event)
     col = idx % GRID_COLS;
     row = idx / GRID_COLS;
 
-    if (a->digits[col][row] == digit) {
+    if (a->givens[col][row] || a->digits[col][row] == digit) {
         return;
     }
 
