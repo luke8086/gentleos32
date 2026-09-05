@@ -74,14 +74,9 @@ krn_keyboard_handle_scancode(uint8_t scancode)
 static void
 krn_keyboard_handle_intr(isr_stack_st *isr_stack __attribute__((unused)))
 {
-    uint8_t ctrl;
     uint8_t scan = krn_ps2_read_data_with_timeout(0) >> 8;
 
     krn_keyboard_handle_scancode(scan);
-
-    ctrl = inb(0x61);
-    outb(ctrl | 0x80, 0x61);
-    outb(ctrl, 0x61);
 
     outb(0x20, 0x20);
 }
