@@ -36,6 +36,10 @@ typedef struct {
     widget_st *widgets[GRID_CELL_COUNT + 2];
 
     grid_st grid;
+
+    uint8_t digits[GRID_COLS][GRID_ROWS];
+
+    widget_st *active_cell;
 } app_state_st;
 
 static app_state_st *app_state = NULL;
@@ -50,17 +54,108 @@ static void
 draw_cell(widget_st *widget)
 {
     app_state_st *a = app_state;
+
+    int idx = widget->tag1;
+    int col = idx % GRID_COLS;
+    int row = idx / GRID_COLS;
+    uint8_t digit = a->digits[col][row];
     uint8_t bg = COLOR_WIDGET_BG;
     uint8_t fg = COLOR_WIDGET_FG;
     rect_st rect = widget->rect;
     char str[2] = { 0, 0 };
 
-    gui_surface_draw_rect(a->window.surface, rect, bg);
+    if (widget == a->active_cell) {
+        gui_surface_draw_rect(a->window.surface, rect, COLOR_BORDER);
+        gui_surface_draw_rect(a->window.surface, gui_rect_shrink(rect, 1), bg);
+    } else {
+        gui_surface_draw_rect(a->window.surface, rect, bg);
+    }
 
-    str[0] = '0' + 5;
-    gui_surface_draw_str_cc(a->window.surface, rect, font_8x16, str, fg, bg);
+    if (digit) {
+        str[0] = '0' + digit;
+        gui_surface_draw_str_cc(a->window.surface, rect, font_8x16, str, fg, bg);
+    }
 
     gui_wm_render_window_region(&a->window, rect);
+}
+
+static void
+set_active_cell(widget_st *widget)
+{
+    app_state_st *a = app_state;
+    widget_st *prev_active_cell = a->active_cell;
+
+    if (widget == prev_active_cell) {
+        return;
+    }
+
+    a->active_cell = widget;
+
+    if (prev_active_cell) {
+        gui_widget_draw(prev_active_cell);
+    }
+
+    gui_widget_draw(a->active_cell);
+    update_status();
+}
+
+static void
+update_active_cell(int col_step, int row_step)
+{
+    app_state_st *a = app_state;
+    int col = 0;
+    int row = 0;
+    int idx;
+
+    if (a->active_cell) {
+        idx = a->active_cell->tag1;
+
+        col = MAX(0, MIN(GRID_COLS - 1, idx % GRID_COLS + col_step));
+        row = MAX(0, MIN(GRID_ROWS - 1, idx / GRID_COLS + row_step));
+    }
+
+    set_active_cell(&a->cell_widgets[row * GRID_COLS + col]);
+}
+
+static void
+on_cell_pointer_down(widget_st *widget, event_st event _unsd, point_st pos _unsd)
+{
+    set_active_cell(widget);
+}
+
+static void
+on_key_down(window_st *window _unsd, event_st event)
+{
+    app_state_st *a = app_state;
+    int digit, idx, col, row;
+
+    switch (event.key_code) {
+    case KEY_UP: update_active_cell(0, -1); return;
+    case KEY_DOWN: update_active_cell(0, 1); return;
+    case KEY_LEFT: update_active_cell(-1, 0); return;
+    case KEY_RIGHT: update_active_cell(1, 0); return;
+    case KEY_BKSP:
+    case KEY_DEL:
+    case KEY_SPACE: digit = 0; break;
+    default: digit = key_number_for_code(event.key_code); break;
+    }
+
+    if (digit < 0 || !a->active_cell) {
+        return;
+    }
+
+    idx = a->active_cell->tag1;
+    col = idx % GRID_COLS;
+    row = idx / GRID_COLS;
+
+    if (a->digits[col][row] == digit) {
+        return;
+    }
+
+    a->digits[col][row] = digit;
+
+    gui_widget_draw(a->active_cell);
+    update_status();
 }
 
 static void
@@ -103,6 +198,7 @@ init_window(void)
     a->window.widgets_capacity = sizeof(a->widgets) / sizeof(a->widgets[0]);
     a->window.draw = draw_window;
     a->window.on_active_change = on_active_change;
+    a->window.on_key_down = on_key_down;
     a->window.on_close = close_window;
 
     gui_window_init_frame(&a->window, &a->title_bar, &a->close_button);
@@ -135,8 +231,11 @@ init_grid(void)
         a->cell_widgets[i].rect = rect;
         a->cell_widgets[i].tag1 = i;
         a->cell_widgets[i].draw = draw_cell;
+        a->cell_widgets[i].on_pointer_down = on_cell_pointer_down;
 
         gui_window_add_widget(&a->window, &a->cell_widgets[i]);
+
+        a->digits[col][row] = 1 + (i % 9);
     }
 }
 
@@ -153,6 +252,7 @@ init_app(void)
 
     init_window();
     init_grid();
+    set_active_cell(&app_state->cell_widgets[0]);
 
     app_sudoku.main_window = &app_state->window;
 
