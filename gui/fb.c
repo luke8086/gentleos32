@@ -117,7 +117,7 @@ gui_fb_draw_surface(int dst_x, int dst_y, surface_st *src_sf, rect_st src_rect)
 }
 
 global void
-gui_fb_draw_wallpaper(rect_st rect, bitmap_st *bitmap)
+gui_fb_draw_image(rect_st rect, bitmap_st *bitmap)
 {
     surface_st surface;
 

@@ -130,6 +130,28 @@ gui_wm_remove_window(struct window *w)
     gui_wm_render_desktop_region(w->rect, NULL);
 }
 
+global int
+gui_wm_is_valid_pattern(bitmap_st *b)
+{
+    return b->bpp == 1 && b->size.width % 8 == 0;
+}
+
+global int
+gui_wm_is_valid_image(bitmap_st *b)
+{
+    system_info_st *si = &krn_system_info;
+
+    return b->bpp == 8 && b->size.width == si->fb_width && b->size.height == si->fb_height;
+}
+
+global int
+gui_wm_is_valid_wallpaper(bitmap_st *b)
+{
+    return 0
+        || gui_wm_is_valid_pattern(b)
+        || gui_wm_is_valid_image(b);
+}
+
 static void
 gui_wm_render_wallpaper(rect_st rect)
 {
@@ -137,10 +159,10 @@ gui_wm_render_wallpaper(rect_st rect)
 
     if (!gui_wm_wallpaper) {
         gui_fb_draw_rect(rect, COLOR_DESKTOP);
-    } else if (gui_wm_wallpaper->bpp == 1) {
+    } else if (gui_wm_is_valid_pattern(gui_wm_wallpaper)) {
         gui_fb_draw_pattern(rect, gui_wm_wallpaper, COLOR_DESKTOP_ALT, COLOR_DESKTOP);
-    } else {
-        gui_fb_draw_wallpaper(rect, gui_wm_wallpaper);
+    } else if (gui_wm_is_valid_image(gui_wm_wallpaper)) {
+        gui_fb_draw_image(rect, gui_wm_wallpaper);
     }
 
     gui_fb_draw_end();

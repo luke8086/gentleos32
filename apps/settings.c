@@ -196,7 +196,6 @@ static void
 load_wallpapers(void)
 {
     app_state_st *a = app_state;
-    system_info_st *si = &krn_system_info;
 
     a->wallpapers[0] = NULL;
     a->wallpaper_names[0] = "None";
@@ -216,11 +215,7 @@ load_wallpapers(void)
 
         bitmap = gui_load_bitmap(file->name);
 
-        if (bitmap
-            && (bitmap->bpp == 8 || (bitmap->bpp == 1 && bitmap->size.width % 8 == 0))
-            && bitmap->size.width == si->fb_width
-            && bitmap->size.height == si->fb_height
-        ) {
+        if (bitmap && gui_wm_is_valid_wallpaper(bitmap)) {
             a->wallpapers[a->wallpaper_count] = bitmap;
             a->wallpaper_names[a->wallpaper_count] = file->name;
             ++a->wallpaper_count;
