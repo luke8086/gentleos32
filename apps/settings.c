@@ -133,16 +133,37 @@ static const char *theme_names[THEME_COUNT] = {
 };
 
 static void
-select_active_buttons(void)
+select_active_pattern_button(void)
 {
     app_state_st *a = app_state;
+    widget_st *prev = a->active_pattern_button;
+
+    a->active_pattern_button = NULL;
 
     for (int i = 0; i < PATTERN_COUNT; i++) {
-        if (gui_wm_pattern == patterns[i]) {
+        if (gui_wm_wallpaper == patterns[i]) {
             a->active_pattern_button = &a->pattern_buttons[i];
             break;
         }
     }
+
+    if (a->active_pattern_button == prev) {
+        return;
+    }
+
+    if (prev) {
+        gui_widget_draw(prev);
+    }
+
+    if (a->active_pattern_button) {
+        gui_widget_draw(a->active_pattern_button);
+    }
+}
+
+static void
+select_active_color_buttons(void)
+{
+    app_state_st *a = app_state;
 
     for (int i = 0; i < COLOR_COUNT; i++) {
         if (gui_theme.desktop == i) {
@@ -153,6 +174,22 @@ select_active_buttons(void)
             a->active_color2_button = &a->color2_buttons[i];
         }
     }
+}
+
+static void
+select_active_wallpaper_item(void)
+{
+    app_state_st *a = app_state;
+    int index = 0;
+
+    for (int i = 1; i < a->wallpaper_count; i++) {
+        if (a->wallpapers[i] == gui_wm_wallpaper) {
+            index = i;
+            break;
+        }
+    }
+
+    gui_list_widget_set_index(&a->wallpaper_list, index);
 }
 
 static void
@@ -192,26 +229,18 @@ load_wallpapers(void)
 }
 
 static void
-set_pattern(int index)
+set_wallpaper(bitmap_st *bitmap)
 {
-    app_state_st *a = app_state;
-    widget_st *prev = a->active_pattern_button;
-
-    gui_wm_pattern = patterns[index];
-    a->active_pattern_button = &a->pattern_buttons[index];
-
-    if (prev && prev != a->active_pattern_button) {
-        gui_widget_draw(prev);
+    if (bitmap == gui_wm_wallpaper) {
+        return;
     }
 
-    gui_widget_draw(a->active_pattern_button);
-}
+    gui_wm_wallpaper = bitmap;
 
-static void
-clear_wallpaper(void)
-{
-    gui_wm_wallpaper = NULL;
-    gui_list_widget_set_index(&app_state->wallpaper_list, 0);
+    select_active_pattern_button();
+    select_active_wallpaper_item();
+
+    gui_wm_render_desktop_region(gui_wm_container, NULL);
 }
 
 static const char *
@@ -229,7 +258,7 @@ on_theme_select(list_widget_st *list _unsd, int index)
 
     gui_theme_set(index);
 
-    select_active_buttons();
+    select_active_color_buttons();
 
     gui_wm_redraw_all();
 }
@@ -243,19 +272,7 @@ get_wallpaper_label(list_widget_st *list _unsd, int index)
 static void
 on_wallpaper_select(list_widget_st *list _unsd, int index)
 {
-    app_state_st *a = app_state;
-
-    if (a->wallpapers[index] == gui_wm_wallpaper) {
-        return;
-    }
-
-    gui_wm_wallpaper = a->wallpapers[index];
-
-    if (gui_wm_wallpaper) {
-        set_pattern(0);
-    }
-
-    gui_wm_render_desktop_region(gui_wm_container, NULL);
+    set_wallpaper(app_state->wallpapers[index]);
 }
 
 static void
@@ -286,13 +303,7 @@ draw_pattern_button(widget_st *widget)
 static void
 on_pattern_button_press(widget_st *widget, event_st event _unsd, point_st pos _unsd)
 {
-    set_pattern(widget->tag1);
-
-    if (gui_wm_pattern) {
-        clear_wallpaper();
-    }
-
-    gui_wm_render_desktop_region(gui_wm_container, NULL);
+    set_wallpaper(patterns[widget->tag1]);
 }
 
 static void
@@ -433,7 +444,6 @@ static void
 init_wallpaper_list(void)
 {
     app_state_st *a = app_state;
-    int index = 0;
 
     a->wallpaper_list.grid.cell_width = WALLPAPER_CELL_WIDTH;
     a->wallpaper_list.grid.cell_height = WALLPAPER_CELL_HEIGHT;
@@ -446,18 +456,10 @@ init_wallpaper_list(void)
     a->wallpaper_list.get_label = get_wallpaper_label;
     a->wallpaper_list.on_select = on_wallpaper_select;
 
-    for (int i = 1; i < a->wallpaper_count; i++) {
-        if (a->wallpapers[i] == gui_wm_wallpaper) {
-            index = i;
-            break;
-        }
-    }
-
     gui_list_widget_init(&a->wallpaper_list);
     gui_window_add_widget(&a->window, &a->wallpaper_list.widget);
 
     gui_list_widget_set_item_count(&a->wallpaper_list, a->wallpaper_count);
-    gui_list_widget_set_index(&a->wallpaper_list, index);
 }
 
 static void
@@ -531,7 +533,6 @@ init_app(void)
     load_wallpapers();
 
     init_window();
-    select_active_buttons();
     init_theme_list();
     init_wallpaper_list();
     init_pattern_buttons();
@@ -539,6 +540,10 @@ init_app(void)
         COLOR1_GRID_X, COLOR1_GRID_Y, on_color1_button_press);
     init_color_buttons(&app_state->color2_grid, app_state->color2_buttons,
         COLOR2_GRID_X, COLOR2_GRID_Y, on_color2_button_press);
+
+    select_active_wallpaper_item();
+    select_active_pattern_button();
+    select_active_color_buttons();
 
     app_settings.main_window = &app_state->window;
 
