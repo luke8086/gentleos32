@@ -127,7 +127,6 @@ extern void gui_window_on_active_change(window_st *window);
 /* gui/wm.c */
 extern rect_st gui_wm_container;
 extern bitmap_st *gui_wm_wallpaper;
-extern bitmap_st *gui_wm_pattern;
 extern void gui_wm_toggle_window_active(window_st *w, int active);
 extern void gui_wm_raise_window(struct window *w);
 extern int gui_wm_free_slots(void);
