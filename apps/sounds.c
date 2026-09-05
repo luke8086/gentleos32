@@ -36,15 +36,25 @@ typedef struct {
     widget_st title_bar;
     widget_st close_button;
     widget_st *widgets[KEY_W_COUNT + KEY_B_COUNT + 2];
+
+    widget_st *kbd_pressed_key;
 } app_state_st;
 
 static app_state_st *app_state = NULL;
+
+static widget_st *
+pressed_key(void)
+{
+    app_state_st *a = app_state;
+
+    return a->window.pressed_widget ? a->window.pressed_widget : a->kbd_pressed_key;
+}
 
 static void
 draw_key_w(widget_st *widget)
 {
     rect_st rect_base = gui_rect_shrink(widget->rect, 1);
-    uint8_t color = (widget == widget->window->pressed_widget)
+    uint8_t color = (widget == pressed_key())
         ? COLOR_PIANO_KEY_SEL : COLOR_PIANO_KEY_WHITE;
 
     int octave = widget->tag2 / 7;
@@ -71,7 +81,7 @@ draw_key_w(widget_st *widget)
 static void
 draw_key_b(widget_st *widget)
 {
-    uint8_t color = (widget == widget->window->pressed_widget)
+    uint8_t color = (widget == pressed_key())
         ? COLOR_PIANO_KEY_SEL : COLOR_PIANO_KEY_BLACK;
 
     gui_surface_draw_rect(widget->window->surface, widget->rect, color);
@@ -93,9 +103,64 @@ key_frequency(widget_st *widget)
     return freqs[ofs] * (1 << octave);
 }
 
+static widget_st *
+key_for_key_code(int key_code)
+{
+    app_state_st *a = app_state;
+    widget_st *w = NULL;
+
+    switch (key_code) {
+    case KEY_Z: w = &a->keys_w[0]; break;
+    case KEY_X: w = &a->keys_w[1]; break;
+    case KEY_C: w = &a->keys_w[2]; break;
+    case KEY_V: w = &a->keys_w[3]; break;
+    case KEY_B: w = &a->keys_w[4]; break;
+    case KEY_N: w = &a->keys_w[5]; break;
+    case KEY_M: w = &a->keys_w[6]; break;
+    case KEY_COMMA: w = &a->keys_w[7]; break;
+    case KEY_W: w = &a->keys_w[7]; break;
+    case KEY_E: w = &a->keys_w[8]; break;
+    case KEY_R: w = &a->keys_w[9]; break;
+    case KEY_T: w = &a->keys_w[10]; break;
+    case KEY_Y: w = &a->keys_w[11]; break;
+    case KEY_U: w = &a->keys_w[12]; break;
+    case KEY_I: w = &a->keys_w[13]; break;
+    case KEY_O: w = &a->keys_w[14]; break;
+    case KEY_S: w = &a->keys_b[0]; break;
+    case KEY_D: w = &a->keys_b[1]; break;
+    case KEY_G: w = &a->keys_b[2]; break;
+    case KEY_H: w = &a->keys_b[3]; break;
+    case KEY_J: w = &a->keys_b[4]; break;
+    case KEY_3: w = &a->keys_b[5]; break;
+    case KEY_4: w = &a->keys_b[6]; break;
+    case KEY_6: w = &a->keys_b[7]; break;
+    case KEY_7: w = &a->keys_b[8]; break;
+    case KEY_8: w = &a->keys_b[9]; break;
+    }
+
+    return w;
+}
+
+static void
+release_kbd_pressed_key(void)
+{
+    widget_st *widget = app_state->kbd_pressed_key;
+
+    if (!widget) {
+        return;
+    }
+
+    app_state->kbd_pressed_key = NULL;
+
+    krn_speaker_stop(&app_sounds);
+    gui_widget_draw(widget);
+}
+
 static void
 on_key_pointer_down(widget_st *widget, event_st event, point_st pos)
 {
+    release_kbd_pressed_key();
+
     krn_speaker_play_freq(key_frequency(widget), &app_sounds);
 
     gui_button_on_pointer_down(widget, event, pos);
@@ -115,6 +180,53 @@ on_key_pointer_out(widget_st *widget, event_st event, point_st pos)
     krn_speaker_stop(&app_sounds);
 
     gui_button_on_pointer_out(widget, event, pos);
+}
+
+static void
+on_key_down(window_st *window _unsd, event_st event)
+{
+    app_state_st *a = app_state;
+    widget_st *widget;
+
+    /* Never interrupt a key held with the mouse */
+    if (a->window.pressed_widget) {
+        return;
+    }
+
+    if (event.key_mods & (KEY_MOD_CTRL | KEY_MOD_ALT | KEY_MOD_ESC)) {
+        return;
+    }
+
+    widget = key_for_key_code(event.key_code);
+
+    if (!widget || widget == a->kbd_pressed_key) {
+        return;
+    }
+
+    release_kbd_pressed_key();
+
+    a->kbd_pressed_key = widget;
+
+    krn_speaker_play_freq(key_frequency(widget), &app_sounds);
+    gui_widget_draw(widget);
+}
+
+static void
+on_key_up(window_st *window _unsd, event_st event)
+{
+    if (key_for_key_code(event.key_code) == app_state->kbd_pressed_key) {
+        release_kbd_pressed_key();
+    }
+}
+
+static void
+on_active_change(window_st *window)
+{
+    if (window->active) {
+        gui_status_set("Z-,: Wh/Lo  S-J: Bl/Lo  W-O: Wh/Hi  3-8: Bl/Hi");
+    } else {
+        release_kbd_pressed_key();
+    }
 }
 
 static void
@@ -148,6 +260,9 @@ init_window(void)
     a->window.draw = draw_window;
     a->window.widgets = a->widgets;
     a->window.widgets_capacity = sizeof(a->widgets) / sizeof(a->widgets[0]);
+    a->window.on_key_down = on_key_down;
+    a->window.on_key_up = on_key_up;
+    a->window.on_active_change = on_active_change;
     a->window.on_close = close_window;
 
     gui_window_init_frame(&a->window, &a->title_bar, &a->close_button);
