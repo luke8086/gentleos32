@@ -81,7 +81,7 @@ gui_fb_mark_dirty(rect_st rect)
 }
 
 global void
-gui_fb_draw_rect(rect_st rect, uint8_t color)
+gui_fb_draw_rect(rect_st rect, uint8_t color, int mark_dirty)
 {
     if (krn_system_info.fb_planar) {
         gui_planar_draw_rect(rect, color);
@@ -89,7 +89,9 @@ gui_fb_draw_rect(rect_st rect, uint8_t color)
         gui_surface_draw_rect(&gui_fb_surface, rect, color);
     }
 
-    gui_fb_mark_dirty(rect);
+    if (mark_dirty) {
+        gui_fb_mark_dirty(rect);
+    }
 }
 
 global void
@@ -126,6 +128,73 @@ gui_fb_draw_image(rect_st rect, bitmap_st *bitmap)
     surface.pixels = (uint8_t *)bitmap->pixels;
 
     gui_fb_draw_surface(rect.x, rect.y, &surface, rect);
+}
+
+global void
+gui_fb_draw_pixelart(rect_st rect, bitmap_st *bitmap)
+{
+    rect_st cell;
+    int row, first_row, last_row;
+    int col, first_col, last_col;
+    int y, row_h;
+
+    /* Draw grid lines in advance */
+    gui_fb_draw_rect(rect, COLOR_DESKTOP, 0);
+
+    /* Iterate over all rows since they have different heights, but break early */
+    first_row = 0;
+    last_row = bitmap->size.height - 1;
+
+    /* Iterate only over relevant columns */
+    first_col = (rect.x - gui_wm_container.x) / PIXELART_SCALE;
+    first_col = MAX(first_col, 0);
+    last_col = (rect.x + rect.width - 1 - gui_wm_container.x) / PIXELART_SCALE;
+    last_col = MIN(last_col, bitmap->size.width - 1);
+
+    y = gui_wm_container.y;
+
+    for (row = first_row; row <= last_row; ++row) {
+        row_h = PIXELART_SCALE + (row == 0) + (row == last_row);
+
+        if (y >= rect.y + rect.height) {
+            break;
+        }
+
+        if (y + row_h <= rect.y) {
+            y += row_h;
+            continue;
+        }
+
+        cell.y = y;
+        cell.height = row_h;
+
+        /* Skip top grid line in all rows except first */
+        if (row > 0) {
+            ++cell.y;
+            --cell.height;
+        }
+
+        for (col = first_col; col <= last_col; ++col) {
+            cell.x = gui_wm_container.x + col * PIXELART_SCALE;
+            cell.width = PIXELART_SCALE;
+
+            /* Skip left grid line in all columns except first */
+            if (col > 0) {
+                ++cell.x;
+                --cell.width;
+            }
+
+            gui_fb_draw_rect(
+                gui_rect_clip(cell, rect),
+                bitmap->pixels[row * bitmap->pitch + col],
+                0
+            );
+        }
+
+        y += row_h;
+    }
+
+    gui_fb_mark_dirty(rect);
 }
 
 global void

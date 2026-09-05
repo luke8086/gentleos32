@@ -263,6 +263,7 @@ enum {
     TITLE_BAR_HEIGHT = 24,
     PANEL_HEIGHT = 24,
     STATUS_HEIGHT = 24,
+    PIXELART_SCALE = 10,
 };
 
 #define GRID_WIDTH_SPACED(cell_width, cols, border) \
