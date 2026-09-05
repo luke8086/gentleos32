@@ -18,6 +18,7 @@ global void
 krn_mouse_handle_abs_packet(int x, int y, int btn_left, int btn_right)
 {
     system_info_st *si = &krn_system_info;
+    int skip_event = 0;
 
     x = MAX(MIN(x, si->fb_width - 1), 0);
     y = MAX(MIN(y, si->fb_height - 1), 0);
@@ -37,17 +38,18 @@ krn_mouse_handle_abs_packet(int x, int y, int btn_left, int btn_right)
         event.type = EVENT_POINTER_ALT;
     }
 
-    if (event.type == EVENT_POINTER_MOVE &&
-        event.pointer_x == mouse_state.x &&
-        event.pointer_y == mouse_state.y) {
-
-        return;
+    if (event.type == EVENT_POINTER_MOVE && x == mouse_state.x && y == mouse_state.y) {
+        skip_event = 1;
     }
 
     mouse_state.x = x;
     mouse_state.y = y;
     mouse_state.btn_left = btn_left;
     mouse_state.btn_right = btn_right;
+
+    if (skip_event) {
+        return;
+    }
 
     (void)krn_event_ipush(event);
 }
