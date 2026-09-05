@@ -54,7 +54,7 @@ krn_mouse_handle_abs_packet(int x, int y, int btn_left, int btn_right)
     (void)krn_event_ipush(event);
 }
 
-static void
+global void
 krn_mouse_handle_rel_packet(int dx, int dy, int btn_left, int btn_right)
 {
     krn_mouse_handle_abs_packet(mouse_state.x + dx, mouse_state.y - dy, btn_left, btn_right);

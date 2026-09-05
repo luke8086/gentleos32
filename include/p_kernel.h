@@ -33,6 +33,7 @@ extern int krn_mem_check_a20(void);
 extern void krn_mem_init(void);
 /* kernel/mouse.c */
 extern void krn_mouse_handle_abs_packet(int x, int y, int btn_left, int btn_right);
+extern void krn_mouse_handle_rel_packet(int dx, int dy, int btn_left, int btn_right);
 extern void krn_mouse_handle_uart_data(uint8_t data);
 extern void krn_mouse_handle_ps2_data(uint8_t data);
 extern void krn_mouse_init(void);

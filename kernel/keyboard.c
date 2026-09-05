@@ -7,6 +7,45 @@
 
 #include <kernel.h>
 
+static int
+krn_keyboard_handle_virtual_mouse(uint8_t key_code, int is_key_down, int is_active)
+{
+    const int step = 10;
+    static int btn_left = 0;
+    static int btn_right = 0;
+    int dx = 0;
+    int dy = 0;
+    int go;
+
+    if (!is_active && (btn_left || btn_right)) {
+        btn_left = 0;
+        btn_right = 0;
+        krn_mouse_handle_rel_packet(0, 0, 0, 0);
+    }
+
+    if (!is_active) {
+        return 0;
+    }
+
+    go = 1;
+
+    switch (key_code) {
+    case KEY_LEFT: dx = -step * is_key_down; break;
+    case KEY_RIGHT: dx = step * is_key_down; break;
+    case KEY_UP: dy = step * is_key_down; break;
+    case KEY_DOWN: dy = -step * is_key_down; break;
+    case KEY_SPACE: btn_left = is_key_down; break;
+    case KEY_R: btn_right = is_key_down; break;
+    default: go = 0;
+    }
+
+    if (go) {
+        krn_mouse_handle_rel_packet(dx, dy, btn_left, btn_right);
+    }
+
+    return go;
+}
+
 static void
 krn_keyboard_handle_scancode(uint8_t scancode)
 {
@@ -19,6 +58,7 @@ krn_keyboard_handle_scancode(uint8_t scancode)
     event_st ev;
     int is_key_down = !(scancode & 0x80);
     int is_key_escaped = last_scan_was_e0;
+    uint8_t shift;
     uint8_t *current_mod;
 
     if (scancode == 0xe0) {
@@ -52,10 +92,11 @@ krn_keyboard_handle_scancode(uint8_t scancode)
         *current_mod = is_key_down;
     }
 
+    shift = lshift || rshift;
+
     ev.key_mods =
         (KEY_MOD_ESC * is_key_escaped) |
-        (KEY_MOD_SHIFT * lshift) |
-        (KEY_MOD_SHIFT * rshift) |
+        (KEY_MOD_SHIFT * shift) |
         (KEY_MOD_CTRL * ctrl) |
         (KEY_MOD_ALT * alt);
 
@@ -66,6 +107,10 @@ krn_keyboard_handle_scancode(uint8_t scancode)
 
     if (ev.key_code == KEY_DEL && ctrl && alt && is_key_down) {
         krn_ps2_reboot();
+    }
+
+    if (krn_keyboard_handle_virtual_mouse(ev.key_code, is_key_down, ctrl && shift)) {
+        return;
     }
 
     (void)krn_event_ipush(ev);
