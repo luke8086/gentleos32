@@ -23,6 +23,11 @@ enum {
 
     WINDOW_WIDTH = GRID_X + GRID_WIDTH,
     WINDOW_HEIGHT = GRID_Y + GRID_HEIGHT,
+
+    UNIT_NONE = 0,
+    UNIT_ROW = 1,
+    UNIT_COL = 2,
+    UNIT_BOX = 3,
 };
 
 typedef struct {
@@ -44,10 +49,134 @@ typedef struct {
 
 static app_state_st *app_state = NULL;
 
+static size_t
+count_empty_cells(void)
+{
+    app_state_st *a = app_state;
+    size_t count = 0;
+    int row, col;
+
+    for (row = 0; row < GRID_ROWS; ++row) {
+        for (col = 0; col < GRID_COLS; ++col) {
+            if (!a->digits[col][row]) {
+                ++count;
+            }
+        }
+    }
+
+    return count;
+}
+
+static int
+find_conflicting_unit(int col, int row)
+{
+    app_state_st *a = app_state;
+    uint8_t digit = a->digits[col][row];
+    int i, dy, dx, box_col, box_row;
+
+    if (!digit) {
+        return UNIT_NONE;
+    }
+
+    for (i = 0; i < GRID_COLS; ++i) {
+        if (i != col && a->digits[i][row] == digit) {
+            return UNIT_ROW;
+        }
+    }
+
+    for (i = 0; i < GRID_ROWS; ++i) {
+        if (i != row && a->digits[col][i] == digit) {
+            return UNIT_COL;
+        }
+    }
+
+    for (dy = 0; dy < GRID_BOX_SIZE; ++dy) {
+        for (dx = 0; dx < GRID_BOX_SIZE; ++dx) {
+            box_col = col - col % GRID_BOX_SIZE + dx;
+            box_row = row - row % GRID_BOX_SIZE + dy;
+
+            if ((box_col != col || box_row != row) && a->digits[box_col][box_row] == digit) {
+                return UNIT_BOX;
+            }
+        }
+    }
+
+    return UNIT_NONE;
+}
+
+static void
+find_conflict(int *digit, int *unit)
+{
+    app_state_st *a = app_state;
+    int row, col;
+
+    *digit = 0;
+    *unit = UNIT_NONE;
+
+    for (row = 0; row < GRID_ROWS; ++row) {
+        for (col = 0; col < GRID_COLS; ++col) {
+            *unit = find_conflicting_unit(col, row);
+
+            if (*unit) {
+                *digit = a->digits[col][row];
+
+                return;
+            }
+        }
+    }
+}
+
+static int
+is_solved(void)
+{
+    int digit, unit;
+
+    if (count_empty_cells()) {
+        return 0;
+    }
+
+    find_conflict(&digit, &unit);
+
+    return unit == UNIT_NONE;
+}
+
 static void
 update_status(void)
 {
-    gui_status_set("");
+    static const char *ng = "N: New game";
+    static const char *unit_labels[] = { NULL, "row", "column", "box" };
+
+    int digit, unit;
+    size_t count;
+
+    find_conflict(&digit, &unit);
+
+    if (unit != UNIT_NONE) {
+        gui_status_set("Digit %d duplicated in a %s", digit, unit_labels[unit]);
+        return;
+    }
+
+    count = count_empty_cells();
+
+    if (count) {
+        gui_status_set("Remaining: %u  \xb3  %s", count, ng);
+        return;
+    }
+
+    gui_status_set("Solved, good job!  \xb3  %s", ng);
+}
+
+static void
+generate_board(void)
+{
+    app_state_st *a = app_state;
+    int row, col;
+
+    for (row = 0; row < GRID_ROWS; ++row) {
+        for (col = 0; col < GRID_COLS; ++col) {
+            a->digits[col][row] = 0;
+        }
+    }
 }
 
 static void
@@ -77,6 +206,28 @@ draw_cell(widget_st *widget)
     }
 
     gui_wm_render_window_region(&a->window, rect);
+}
+
+static void
+draw_all_cells(void)
+{
+    app_state_st *a = app_state;
+    int i;
+
+    for (i = 0; i < GRID_CELL_COUNT; ++i) {
+        draw_cell(&a->cell_widgets[i]);
+    }
+}
+
+static void
+new_game(void)
+{
+    app_state_st *a = app_state;
+
+    a->active_cell = &a->cell_widgets[0];
+    generate_board();
+    draw_all_cells();
+    update_status();
 }
 
 static void
@@ -134,13 +285,14 @@ on_key_down(window_st *window _unsd, event_st event)
     case KEY_DOWN: update_active_cell(0, 1); return;
     case KEY_LEFT: update_active_cell(-1, 0); return;
     case KEY_RIGHT: update_active_cell(1, 0); return;
+    case KEY_N: new_game(); return;
     case KEY_BKSP:
     case KEY_DEL:
     case KEY_SPACE: digit = 0; break;
     default: digit = key_number_for_code(event.key_code); break;
     }
 
-    if (digit < 0 || !a->active_cell) {
+    if (digit < 0 || is_solved()) {
         return;
     }
 
@@ -234,8 +386,6 @@ init_grid(void)
         a->cell_widgets[i].on_pointer_down = on_cell_pointer_down;
 
         gui_window_add_widget(&a->window, &a->cell_widgets[i]);
-
-        a->digits[col][row] = 1 + (i % 9);
     }
 }
 
@@ -252,7 +402,7 @@ init_app(void)
 
     init_window();
     init_grid();
-    set_active_cell(&app_state->cell_widgets[0]);
+    new_game();
 
     app_sudoku.main_window = &app_state->window;
 
