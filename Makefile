@@ -11,10 +11,11 @@ KERNEL_HIMEM_BIN    := gentleos.bin
 KERNEL_LOMEM_ELF    := $(BUILDDIR)/kernel-lomem.elf
 KERNEL_LOMEM_BIN    := $(BUILDDIR)/kernel-lomem.bin
 
-DISK_IMAGE      := gentleos32-disk.img
-GRUB_IMAGE      := gentleos32-grub.img
+BASE_IMAGE      := gentleos32-base.img
+EMU_IMAGE       := gentleos32-emu.img
 WEB_IMAGE       := gentleos32-web.img
-EMU_PAGE        := gentleos32-emu.html
+WEB_PAGE        := gentleos32-web.html
+GRUB_IMAGE      := gentleos32-grub.img
 DISK_FS_OFFSET  := 1048576
 
 KERNEL_HIMEM_LD := $(BASEDIR)/misc/kernel-himem.ld
@@ -73,21 +74,23 @@ OBJDIRS := $(addprefix $(BUILDDIR)/,$(KERNEL_SUBDIRS)) \
 all: disks
 
 disks: $(KERNEL_HIMEM_BIN) $(KERNEL_LOMEM_BIN) $(BOOT_BIN)
+	./tools/mkdisk.pl $(BOOT_BIN) $(KERNEL_LOMEM_BIN) $(BASE_IMAGE)
+
+	cp $(BASE_IMAGE) $(EMU_IMAGE)
+	./tools/mkinitrd.py $(INITRD_OBJS) -o $(BUILDDIR)/gentleos.rd --disk-image $(EMU_IMAGE) --pad
+
+	./tools/mkdisk.pl $(BOOT_BIN) $(KERNEL_LOMEM_BIN) $(WEB_IMAGE) no-menu uart-debug
+	./tools/mkinitrd.py $(INITRD_OBJS) -o $(BUILDDIR)/gentleos.rd --disk-image $(WEB_IMAGE) --pad
+	./tools/mkemu.py $(WEB_IMAGE) $(WEB_PAGE)
+
 	zcat $(BASEDIR)/misc/grub-disk.img.gz > $(GRUB_IMAGE)
 	mcopy -D o -i $(GRUB_IMAGE)@@$(DISK_FS_OFFSET) $(KERNEL_HIMEM_BIN) ::
 	mcopy -D o -i $(GRUB_IMAGE)@@$(DISK_FS_OFFSET) $(BASEDIR)/misc/grub.sample.cfg ::boot/grub/grub.cfg
 	[ -f $(BASEDIR)/misc/grub.cfg ] && mcopy -D o -i $(GRUB_IMAGE)@@$(DISK_FS_OFFSET) $(BASEDIR)/misc/grub.cfg ::boot/grub/grub.cfg || true
-	./tools/mkinitrd.py $(INITRD_OBJS) -o $(BUILDDIR)/gentleos-grub.rd --disk-image $(GRUB_IMAGE)
-
-	./tools/mkdisk.pl $(BOOT_BIN) $(KERNEL_LOMEM_BIN) $(DISK_IMAGE)
-
-	./tools/mkdisk.pl $(BOOT_BIN) $(KERNEL_LOMEM_BIN) $(WEB_IMAGE) no-menu uart-debug
-	./tools/mkinitrd.py $(INITRD_OBJS) -o $(BUILDDIR)/gentleos-web.rd --disk-image $(WEB_IMAGE) --pad
-
-	./tools/mkemu.py $(WEB_IMAGE) $(EMU_PAGE)
+	./tools/mkinitrd.py $(INITRD_OBJS) -o $(BUILDDIR)/gentleos.rd --disk-image $(GRUB_IMAGE)
 
 clean:
-	rm -rf $(BUILDDIR) $(KERNEL_HIMEM_BIN) $(DISK_IMAGE) $(GRUB_IMAGE) $(WEB_IMAGE) $(EMU_PAGE)
+	rm -rf $(BUILDDIR) $(KERNEL_HIMEM_BIN) $(BASE_IMAGE) $(EMU_IMAGE) $(WEB_IMAGE) $(WEB_PAGE) $(GRUB_IMAGE)
 
 $(OBJDIRS):
 	@mkdir -p $@

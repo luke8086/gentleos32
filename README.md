@@ -31,7 +31,7 @@ docker compose down --rmi all
 
 ## Testing
 
-The easiest way to test is to open `gentleos32-emu.html` in a browser.
+The easiest way to test is to open `gentleos32-web.html` in a browser.
 
 ## Adding files
 
