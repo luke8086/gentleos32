@@ -36,5 +36,7 @@ extern app_st app_settings;
 extern app_st app_snake;
 /* apps/sounds.c */
 extern app_st app_sounds;
+/* apps/sudoku.c */
+extern app_st app_sudoku;
 /* apps/tetris.c */
 extern app_st app_tetris;
