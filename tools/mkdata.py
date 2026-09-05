@@ -217,6 +217,7 @@ def process_builtin_file_entry(index, f):
 def process_builtin_files():
     paths = sorted([]
         + glob.glob("build/assets/songs/*.spk")
+        + ["vendor/misc/Sunset.png"]
     )
 
     if not paths:
