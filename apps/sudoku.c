@@ -29,7 +29,17 @@ enum {
     UNIT_ROW = 1,
     UNIT_COL = 2,
     UNIT_BOX = 3,
+
+    SOLVER_DIGIT_MASK_FULL = 0x1ff,
 };
+
+typedef struct {
+    uint8_t digits[GRID_COLS][GRID_ROWS];
+
+    uint16_t row_mask[GRID_ROWS];
+    uint16_t col_mask[GRID_COLS];
+    uint16_t box_mask[GRID_BOX_COUNT];
+} solver_st;
 
 typedef struct {
     uint8_t window_pixels[WINDOW_WIDTH * WINDOW_HEIGHT];
@@ -45,6 +55,7 @@ typedef struct {
 
     uint8_t digits[GRID_COLS][GRID_ROWS];
     uint8_t givens[GRID_COLS][GRID_ROWS];
+    solver_st solver;
 
     widget_st *active_cell;
 } app_state_st;
@@ -166,6 +177,76 @@ update_status(void)
     }
 
     gui_status_set("Solved, good job!  \xb3  %s", ng);
+}
+
+static void
+shuffle_byte_array(uint8_t *values, int count)
+{
+    int i, j;
+    uint8_t tmp;
+
+    for (i = count - 1; i > 0; --i) {
+        j = rand() % (i + 1);
+        tmp = values[i];
+
+        values[i] = values[j];
+        values[j] = tmp;
+    }
+}
+
+static int
+solver_box_index(int col, int row)
+{
+    return (row / GRID_BOX_SIZE) * GRID_BOX_SIZE + col / GRID_BOX_SIZE;
+}
+
+static void
+solver_set_digit(int col, int row, int digit)
+{
+    solver_st *s = &app_state->solver;
+    int box = solver_box_index(col, row);
+    uint16_t bit = 1 << (digit - 1);
+
+    s->digits[col][row] = digit;
+    s->row_mask[row] |= bit;
+    s->col_mask[col] |= bit;
+    s->box_mask[box] |= bit;
+}
+
+static void
+solver_clear_digit(int col, int row, int digit)
+{
+    solver_st *s = &app_state->solver;
+    int box = solver_box_index(col, row);
+    uint16_t bit = 1 << (digit - 1);
+
+    s->digits[col][row] = 0;
+    s->row_mask[row] &= ~bit;
+    s->col_mask[col] &= ~bit;
+    s->box_mask[box] &= ~bit;
+}
+
+static uint16_t
+solver_allowed_digits(int col, int row)
+{
+    solver_st *s = &app_state->solver;
+    int box = solver_box_index(col, row);
+    uint16_t used = s->row_mask[row] | s->col_mask[col] | s->box_mask[box];
+
+    return ~used & SOLVER_DIGIT_MASK_FULL;
+}
+
+static int
+solver_count_allowed_digits(uint16_t mask)
+{
+    int count = 0;
+
+    while (mask) {
+        mask &= mask - 1;
+        ++count;
+    }
+
+    return count;
 }
 
 static void
