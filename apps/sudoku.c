@@ -171,39 +171,12 @@ update_status(void)
 static void
 generate_solved_board(void)
 {
-    app_state_st *a = app_state;
-    int i, row, col, idx;
-    uint8_t digit_map[GRID_ROWS];
-
-    for (i = 0; i < GRID_ROWS; ++i) {
-        digit_map[i] = i + 1;
-    }
-
-    for (row = 0; row < GRID_ROWS; ++row) {
-        for (col = 0; col < GRID_COLS; ++col) {
-            idx = (row * GRID_BOX_SIZE + row / GRID_BOX_SIZE + col) % GRID_ROWS;
-
-            a->digits[col][row] = digit_map[idx];
-        }
-    }
 }
 
 static void
 clear_solution(void)
 {
-    app_state_st *a = app_state;
-    int row, col;
-
-    for (row = 0; row < GRID_ROWS; ++row) {
-        for (col = 0; col < GRID_COLS; ++col) {
-            a->givens[col][row] = 1;
-        }
-    }
-
-    a->givens[GRID_COLS - 1][GRID_ROWS - 1] = 0;
-    a->digits[GRID_COLS - 1][GRID_ROWS - 1] = 0;
 }
-
 
 static void
 generate_board(void)
