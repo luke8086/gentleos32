@@ -14,6 +14,7 @@ extern uint16_t stage2_sectors;
 extern uint16_t kernel_sectors;
 extern uint16_t initrd_sectors;
 extern uint16_t boot_flags;
+extern uint8_t boot_drive_index;
 
 extern uint32_t get_elapsed_ticks(void);
 extern uint16_t get_far_word(uint16_t seg, uint16_t ofs);
@@ -23,6 +24,7 @@ extern void print_char(char c);
 extern void print_str(const char *s);
 extern void print_ushort(uint16_t n);
 extern void safe_load_remaining_sectors_c(uint16_t dest_seg, uint16_t lba, uint16_t count);
+extern void stop_floppy_motor(void);
 extern void copy_ext_mem(uint32_t dest, uint32_t src, uint16_t words);
 extern int vbe_load_ctrl_info(vbe_ctrl_info_st *buf);
 extern int vbe_load_mode_info(uint16_t mode, vbe_mode_info_st *buf);
@@ -273,6 +275,10 @@ stage2_cmain(void)
     }
 
     load_kernel();
+
+    if (boot_drive_index == 0 || boot_drive_index == 1) {
+        stop_floppy_motor();
+    }
 
     print_str("\r\n");
 

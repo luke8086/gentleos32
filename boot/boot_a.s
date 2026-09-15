@@ -40,6 +40,7 @@ stage2_sectors: dw 0
 ; Global variables
 ;
 
+global boot_drive_index:data
 boot_drive_index    db 0
 boot_drive_spt      db 9
 boot_drive_heads    db 2
@@ -535,6 +536,37 @@ get_key:
     xor ah, ah
     int 0x16
     movzx eax, al
+    o32 ret
+
+
+;
+; Stop FDD motor and update FDD status in BIOS
+;
+
+BDA_SEGMENT             equ 0x0040
+BDA_MOTOR_STATUS        equ 0x3f   ; bits 0-3: motors running
+BDA_MOTOR_TIMEOUT       equ 0x40
+FDC_PORT_DOR            equ 0x3f2
+FDC_DOR_MOTORS_OFF      equ 0x0c   ; DMA/IRQ on, not in reset, motors off
+
+global stop_floppy_motor:function
+stop_floppy_motor:
+    push eax
+    push edx
+    push es
+
+    mov dx, FDC_PORT_DOR
+    mov al, FDC_DOR_MOTORS_OFF
+    out dx, al
+
+    mov ax, BDA_SEGMENT
+    mov es, ax
+    and byte [es:BDA_MOTOR_STATUS], 0xf0
+    mov byte [es:BDA_MOTOR_TIMEOUT], 0
+
+    pop es
+    pop edx
+    pop eax
     o32 ret
 
 
