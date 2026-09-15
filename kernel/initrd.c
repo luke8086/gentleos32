@@ -7,8 +7,13 @@
 
 #include <kernel.h>
 
+enum {
+    INITRD_VERSION = 2,
+};
+
 typedef struct {
     char magic[4];
+    uint32_t version;
     uint32_t count;
 } __attribute__((packed)) initrd_header_st;
 
@@ -32,6 +37,11 @@ krn_initrd_init(void)
 
     if (strncmp(header->magic, "IRD1", 4) != 0) {
         krn_debug_printf("invalid format\n");
+        return;
+    }
+
+    if (header->version != INITRD_VERSION) {
+        krn_debug_printf("incompatible version\n");
         return;
     }
 

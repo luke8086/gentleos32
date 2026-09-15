@@ -22,9 +22,10 @@ import struct
 import tempfile
 
 MAGIC        = b"IRD1"
+VERSION      = 2
 NAME_LEN     = 31
 ALIGN        = 4
-HEADER_LEN   = 8                   # 4s magic + I count
+HEADER_LEN   = 12                  # 4s magic + I version + I count
 ENTRY_LEN    = NAME_LEN + 9        # name + B type + I offset + I size
 
 FILE_TYPE_UNKNOWN   = 0
@@ -220,7 +221,7 @@ def build_initrd(files):
         blobs += f["data"] + b"\0" * (padded_size - size)
         offset += padded_size
 
-    return struct.pack("<4sI", MAGIC, count) + table + blobs
+    return struct.pack("<4sII", MAGIC, VERSION, count) + table + blobs
 
 
 def get_kernel_offset_in_image(image):
