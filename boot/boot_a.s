@@ -89,7 +89,6 @@ stage1_main:
 ;
 
 halt:
-    cli
     hlt
     jmp halt
 
