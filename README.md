@@ -47,6 +47,9 @@ uv run tools/mkinitrd.py [FILES] -d gentleos32-base.img
 Both native and GRUB images are supported, the latter require the
 `mtools` package to be installed.
 
+The initrd replaces the one already present in the image. Use option `-a`
+to also include all the default assets shipped with the prebuilt images.
+
 Certain emulators, including v86, only accept disk images which follow
 geometry of physical disks. Use option `-p` to automatically pad the final
 image with zeros to the right size.

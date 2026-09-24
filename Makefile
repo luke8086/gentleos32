@@ -64,30 +64,26 @@ BOOT_BIN        := $(BUILDDIR)/boot.bin
 SONG_SRCS       := $(wildcard assets/musicxml/*.musicxml)
 SONG_OBJS       := $(patsubst assets/musicxml/%.musicxml,assets/spk/%.spk,$(SONG_SRCS))
 
-INITRD_OBJS     := $(BASEDIR)/vendor/misc/Dachshund.png \
-                   $(BASEDIR)/vendor/misc/Beastie.png \
-                   $(BASEDIR)/vendor/misc/Turtle.png
-
 OBJDIRS := $(addprefix $(BUILDDIR)/,$(KERNEL_SUBDIRS)) \
            $(addprefix $(BUILDDIR)/,$(BOOT_SUBDIRS))
 
 all: disks
 
-disks: $(KERNEL_HIMEM_BIN) $(KERNEL_LOMEM_BIN) $(BOOT_BIN)
+disks: $(KERNEL_HIMEM_BIN) $(KERNEL_LOMEM_BIN) $(BOOT_BIN) $(SONG_OBJS)
 	./tools/mkdisk.pl $(BOOT_BIN) $(KERNEL_LOMEM_BIN) $(BASE_IMAGE)
 
 	cp $(BASE_IMAGE) $(EMU_IMAGE)
-	./tools/mkinitrd.py $(INITRD_OBJS) -d $(EMU_IMAGE) -p
+	./tools/mkinitrd.py -a -d $(EMU_IMAGE) -p
 
 	./tools/mkdisk.pl $(BOOT_BIN) $(KERNEL_LOMEM_BIN) $(WEB_IMAGE) no-menu uart-debug
-	./tools/mkinitrd.py $(INITRD_OBJS) -d $(WEB_IMAGE) -p
+	./tools/mkinitrd.py -a -d $(WEB_IMAGE) -p
 	./tools/mkemu.py $(WEB_IMAGE) $(WEB_PAGE)
 
 	zcat $(BASEDIR)/misc/grub-disk.img.gz > $(GRUB_IMAGE)
 	mcopy -D o -i $(GRUB_IMAGE)@@$(DISK_FS_OFFSET) $(KERNEL_HIMEM_BIN) ::
 	mcopy -D o -i $(GRUB_IMAGE)@@$(DISK_FS_OFFSET) $(BASEDIR)/misc/grub.sample.cfg ::boot/grub/grub.cfg
 	[ -f $(BASEDIR)/misc/grub.cfg ] && mcopy -D o -i $(GRUB_IMAGE)@@$(DISK_FS_OFFSET) $(BASEDIR)/misc/grub.cfg ::boot/grub/grub.cfg || true
-	./tools/mkinitrd.py $(INITRD_OBJS) -d $(GRUB_IMAGE)
+	./tools/mkinitrd.py -a -d $(GRUB_IMAGE)
 
 clean:
 	rm -rf $(BUILDDIR) $(KERNEL_HIMEM_BIN) $(BASE_IMAGE) $(EMU_IMAGE) $(WEB_IMAGE) $(WEB_PAGE) $(GRUB_IMAGE)

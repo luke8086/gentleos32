@@ -21,6 +21,20 @@ import shutil
 import struct
 import tempfile
 
+BUILTIN_FILES = [
+    "assets/spk/mozturk.spk",
+    "assets/spk/pgncpr24.spk",
+    "vendor/misc/Sunset.png",
+    "vendor/anthicon/Cyber Tiles.pbm",
+]
+
+DEFAULT_FILES = [
+    "assets/spk/*.spk",
+    "vendor/misc/Dachshund.png",
+    "vendor/misc/Beastie.png",
+    "vendor/misc/Turtle.png",
+]
+
 MAGIC        = b"IRD1"
 VERSION      = 2
 NAME_LEN     = 31
@@ -72,7 +86,14 @@ def expand_paths(paths):
 
         ret.extend(p for p in glob.glob(path, recursive=True) if os.path.isfile(p))
 
-    return sorted(ret)
+    return sorted(set(ret))
+
+
+def default_paths():
+    builtin = set(expand_paths(BUILTIN_FILES))
+    default = expand_paths(DEFAULT_FILES)
+
+    return [p for p in default if p not in builtin]
 
 
 def load_palette(path):
@@ -325,11 +346,18 @@ def main():
         help="path to save the initrd to")
     parser.add_argument("-p", dest="pad", action="store_true",
         help="pad the native disk image to a whole cylinder, as required by emulators")
+    parser.add_argument("-a", dest="include_defaults", action="store_true",
+        help="include all the default assets")
     args = parser.parse_args()
+
+    paths = args.files
+
+    if args.include_defaults:
+        paths = default_paths() + paths
 
     files = []
 
-    for path in expand_paths(args.files):
+    for path in expand_paths(paths):
         files.append(load_file(path))
 
     if not files:
