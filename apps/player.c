@@ -514,6 +514,28 @@ close_window(window_st *window)
 }
 
 static void
+sort_songs(void)
+{
+    app_state_st *a = app_state;
+    file_st *song;
+    int i, j;
+
+    for (i = 1; i < a->song_count; ++i) {
+        song = a->songs[i];
+
+        for (j = i; j > 0; --j) {
+            if (strncmp(a->songs[j - 1]->name, song->name, sizeof(song->name)) <= 0) {
+                break;
+            }
+
+            a->songs[j] = a->songs[j - 1];
+        }
+
+        a->songs[j] = song;
+    }
+}
+
+static void
 init_songs(void)
 {
     app_state_st *a = app_state;
@@ -524,9 +546,14 @@ init_songs(void)
         file = file_get(i);
 
         if (file && file->type == FILE_TYPE_SONG) {
-            a->song_ticks[a->song_count] = song_get_total_ticks((const note_st *)file->addr);
             a->songs[a->song_count++] = file;
         }
+    }
+
+    sort_songs();
+
+    for (i = 0; i < (size_t)a->song_count; ++i) {
+        a->song_ticks[i] = song_get_total_ticks((const note_st *)a->songs[i]->addr);
     }
 }
 
