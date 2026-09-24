@@ -61,16 +61,15 @@ BOOT_DEPS       := $(BOOT_OBJS:.o=.d)
 BOOT_ELF        := $(BUILDDIR)/boot/boot.elf
 BOOT_BIN        := $(BUILDDIR)/boot.bin
 
-SONG_SRCS       := $(wildcard assets/songs/*.musicxml)
-SONG_OBJS       := $(patsubst %.musicxml,$(BUILDDIR)/%.spk,$(SONG_SRCS))
+SONG_SRCS       := $(wildcard assets/musicxml/*.musicxml)
+SONG_OBJS       := $(patsubst assets/musicxml/%.musicxml,assets/spk/%.spk,$(SONG_SRCS))
 
 INITRD_OBJS     := $(BASEDIR)/vendor/misc/Dachshund.png \
                    $(BASEDIR)/vendor/misc/Beastie.png \
                    $(BASEDIR)/vendor/misc/Turtle.png
 
 OBJDIRS := $(addprefix $(BUILDDIR)/,$(KERNEL_SUBDIRS)) \
-           $(addprefix $(BUILDDIR)/,$(BOOT_SUBDIRS)) \
-           $(BUILDDIR)/assets/songs
+           $(addprefix $(BUILDDIR)/,$(BOOT_SUBDIRS))
 
 all: disks
 
@@ -108,7 +107,7 @@ $(KERNEL_HIMEM_BIN): $(KERNEL_HIMEM_ELF)
 $(KERNEL_LOMEM_BIN): $(KERNEL_LOMEM_ELF)
 	$(OBJCOPY) -O binary $< $@
 
-$(BUILDDIR)/assets/songs/%.spk: assets/songs/%.musicxml
+assets/spk/%.spk: assets/musicxml/%.musicxml
 	python3 tools/mkspk.py -i $< -o $@
 
 $(BUILDDIR)/data.o: $(BUILDDIR)/data.c
