@@ -44,9 +44,6 @@ To create an initrd and automatically install in a disk image, run:
 uv run tools/mkinitrd.py [FILES] -d gentleos32-base.img
 ```
 
-Both native and GRUB images are supported, the latter require the
-`mtools` package to be installed.
-
 The initrd replaces the one already present in the image. Use option `-a`
 to also include all the default assets shipped with the prebuilt images.
 

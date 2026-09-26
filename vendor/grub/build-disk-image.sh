@@ -2,10 +2,9 @@
 
 set -e
 
-BUILD_DIR="./build"
 MOUNT_DIR="./tmp/mnt"
 LOOP_DEVICE="/dev/loop20"
-EMPTY_DISK_IMAGE="./misc/grub-disk.img"
+EMPTY_DISK_IMAGE="./vendor/grub/grub-disk.img"
 
 # Clean up
 mkdir -p "$MOUNT_DIR"
@@ -13,7 +12,6 @@ sudo umount "$MOUNT_DIR" &>/dev/null || true
 sudo losetup -d "$LOOP_DEVICE" &>/dev/null || true
 
 # Create blank disk image and partition
-mkdir -p "$BUILD_DIR"
 dd if=/dev/zero of="$EMPTY_DISK_IMAGE" bs=1M count=4
 chmod 666 "$EMPTY_DISK_IMAGE"
 echo -e "o\nn\np\n1\n2048\n\na\nt\n06\nw\n" | fdisk "$EMPTY_DISK_IMAGE"
@@ -31,6 +29,3 @@ sudo grub-install --fonts= --themes= --locales=  --target=i386-pc --boot-directo
 # Unmount and cleanup
 sudo umount "$MOUNT_DIR"
 sudo losetup -d "$LOOP_DEVICE"
-
-# Compress the disk image
-gzip -f -9 "$EMPTY_DISK_IMAGE"

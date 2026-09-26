@@ -17,8 +17,6 @@ BASE_IMAGE      := gentleos32-base.img
 EMU_IMAGE       := gentleos32-emu.img
 WEB_IMAGE       := gentleos32-web.img
 WEB_PAGE        := gentleos32-web.html
-GRUB_IMAGE      := gentleos32-grub.img
-DISK_FS_OFFSET  := 1048576
 
 KERNEL_HIMEM_LD := $(BASEDIR)/misc/kernel-himem.ld
 KERNEL_LOMEM_LD := $(BASEDIR)/misc/kernel-lomem.ld
@@ -83,14 +81,8 @@ disks: $(KERNEL_HIMEM_BIN) $(KERNEL_LOMEM_BIN) $(BOOT_BIN) $(SONG_OBJS)
 	./tools/mkinitrd.py -a -d $(WEB_IMAGE) -p
 	./tools/mkemu.py $(WEB_IMAGE) $(WEB_PAGE)
 
-	zcat $(BASEDIR)/misc/grub-disk.img.gz > $(GRUB_IMAGE)
-	mcopy -D o -i $(GRUB_IMAGE)@@$(DISK_FS_OFFSET) $(KERNEL_HIMEM_BIN) ::
-	mcopy -D o -i $(GRUB_IMAGE)@@$(DISK_FS_OFFSET) $(BASEDIR)/misc/grub.sample.cfg ::boot/grub/grub.cfg
-	[ -f $(BASEDIR)/misc/grub.cfg ] && mcopy -D o -i $(GRUB_IMAGE)@@$(DISK_FS_OFFSET) $(BASEDIR)/misc/grub.cfg ::boot/grub/grub.cfg || true
-	./tools/mkinitrd.py -a -d $(GRUB_IMAGE)
-
 clean:
-	rm -rf $(BUILDDIR) $(KERNEL_HIMEM_BIN) $(INITRD) $(BASE_IMAGE) $(EMU_IMAGE) $(WEB_IMAGE) $(WEB_PAGE) $(GRUB_IMAGE)
+	rm -rf $(BUILDDIR) $(KERNEL_HIMEM_BIN) $(INITRD) $(BASE_IMAGE) $(EMU_IMAGE) $(WEB_IMAGE) $(WEB_PAGE)
 
 $(OBJDIRS):
 	@mkdir -p $@

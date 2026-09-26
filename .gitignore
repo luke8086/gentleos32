@@ -7,8 +7,6 @@
 /gentleos.rd
 /gentleos32-*.img
 /gentleos32-*.html
-/misc/grub.cfg
-/misc/menu.lst
 /tmp/*
 *.swp
 __pycache__

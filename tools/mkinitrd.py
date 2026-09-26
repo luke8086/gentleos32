@@ -17,9 +17,7 @@ import argparse
 import glob
 import os
 import re
-import shutil
 import struct
-import tempfile
 
 BUILTIN_FILES = [
     "assets/spk/mozturk.spk",
@@ -59,7 +57,6 @@ SPK_NOTE_REX   = re.compile(r"^\s*(\d+)\s*,\s*(\d+)\s*$")
 SPK_META_REX   = re.compile(r"^\s*(\w+)\s*:\s*(.+?)\s*$")
 
 SECTOR_LEN    = 512
-FS_OFFSET     = 1048576
 
 
 def die(msg):
@@ -306,23 +303,6 @@ def install_initrd_native(disk_image_path, image, initrd, pad):
     print("Initrd installed in %s" % disk_image_path)
 
 
-def install_initrd_grub(disk_image_path, initrd):
-    if not shutil.which("mcopy"):
-        die("Error: mkinitrd.py requires 'mtools' package to install initrd in a disk image")
-
-    fd, initrd_path = tempfile.mkstemp(suffix=".rd")
-
-    try:
-        with os.fdopen(fd, "wb") as f:
-            f.write(initrd)
-
-        cmd = "mcopy -D o -i '%s@@%d' %s ::gentleos.rd" % (disk_image_path, FS_OFFSET, initrd_path)
-        print("Running %s" % cmd)
-        os.system(cmd)
-    finally:
-        os.unlink(initrd_path)
-
-
 def install_initrd(disk_image_path, initrd, pad):
     if not os.path.exists(disk_image_path):
         die("Error: disk image not found")
@@ -330,10 +310,10 @@ def install_initrd(disk_image_path, initrd, pad):
     with open(disk_image_path, "rb") as f:
         image = f.read()
 
-    if is_native_image(image):
-        install_initrd_native(disk_image_path, image, initrd, pad)
-    else:
-        install_initrd_grub(disk_image_path, initrd)
+    if not is_native_image(image):
+        die("Error: invalid disk image")
+
+    install_initrd_native(disk_image_path, image, initrd, pad)
 
 
 def main():
