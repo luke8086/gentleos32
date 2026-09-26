@@ -3,7 +3,7 @@
 # Copyright (c) 2026 luke8086
 # Distributed under the terms of GPL-2 License.
 #
-# File: mkemu.py - Make webpage with v86 emulator
+# File: mkweb.py - Make webpage with v86 emulator
 #
 
 import base64

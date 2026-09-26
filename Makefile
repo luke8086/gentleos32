@@ -13,8 +13,7 @@ KERNEL_LOMEM_BIN    := $(BUILDDIR)/kernel-lomem.bin
 
 INITRD              := gentleos.rd
 
-BASE_IMAGE      := gentleos32-base.img
-EMU_IMAGE       := gentleos32-emu.img
+DISK_IMAGE      := gentleos32-disk.img
 WEB_IMAGE       := gentleos32-web.img
 WEB_PAGE        := gentleos32-web.html
 
@@ -70,19 +69,17 @@ OBJDIRS := $(addprefix $(BUILDDIR)/,$(KERNEL_SUBDIRS)) \
 all: disks
 
 disks: $(KERNEL_HIMEM_BIN) $(KERNEL_LOMEM_BIN) $(BOOT_BIN) $(SONG_OBJS)
-	./tools/mkdisk.pl $(BOOT_BIN) $(KERNEL_LOMEM_BIN) $(BASE_IMAGE)
+	./tools/mkdisk.pl $(BOOT_BIN) $(KERNEL_LOMEM_BIN) $(DISK_IMAGE)
+	./tools/mkinitrd.py -a -d $(DISK_IMAGE)
 
 	./tools/mkinitrd.py -a -o $(INITRD)
 
-	cp $(BASE_IMAGE) $(EMU_IMAGE)
-	./tools/mkinitrd.py -a -d $(EMU_IMAGE) -p
-
 	./tools/mkdisk.pl $(BOOT_BIN) $(KERNEL_LOMEM_BIN) $(WEB_IMAGE) no-menu uart-debug
 	./tools/mkinitrd.py -a -d $(WEB_IMAGE) -p
-	./tools/mkemu.py $(WEB_IMAGE) $(WEB_PAGE)
+	./tools/mkweb.py $(WEB_IMAGE) $(WEB_PAGE)
 
 clean:
-	rm -rf $(BUILDDIR) $(KERNEL_HIMEM_BIN) $(INITRD) $(BASE_IMAGE) $(EMU_IMAGE) $(WEB_IMAGE) $(WEB_PAGE)
+	rm -rf $(BUILDDIR) $(KERNEL_HIMEM_BIN) $(INITRD) $(DISK_IMAGE) $(WEB_IMAGE) $(WEB_PAGE)
 
 $(OBJDIRS):
 	@mkdir -p $@
