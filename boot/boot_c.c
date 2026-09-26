@@ -80,6 +80,15 @@ load_kernel(void)
     safe_load_remaining_sectors_c(KERNEL_DEST >> 4, STAGE2_START_LBA + stage2_sectors, kernel_sectors);
 }
 
+static int
+initrd_fits_upper_mem(void)
+{
+    uint32_t initrd_size = (uint32_t)initrd_sectors * 512;
+    uint32_t upper_mem_size = mboot_info.mem_upper * 1024;
+
+    return initrd_size <= upper_mem_size;
+}
+
 static void
 load_initrd(void)
 {
@@ -98,6 +107,13 @@ load_initrd(void)
         dest += sectors * 512;
         remaining -= sectors;
     }
+
+    mboot_mod.mod_start = INITRD_DEST;
+    mboot_mod.mod_end = INITRD_DEST + initrd_sectors * 512;
+
+    mboot_info.flags |= MBOOT_FLAG_MODS;
+    mboot_info.mods_count = 1;
+    mboot_info.mods_addr = (uint32_t)&mboot_mod;
 }
 
 static int
@@ -254,7 +270,7 @@ show_boot_menu(void)
 void
 stage2_cmain(void)
 {
-    int key;
+    int key, initrd_skipped = 0;
 
     print_str("\r\nLoading GentleOS.");
 
@@ -263,15 +279,12 @@ stage2_cmain(void)
     }
 
     if (initrd_sectors > 0) {
-        /* Must be called before load_kernel since it temporarily uses the same memory */
-        load_initrd();
-
-        mboot_mod.mod_start = INITRD_DEST;
-        mboot_mod.mod_end = INITRD_DEST + initrd_sectors * 512;
-
-        mboot_info.flags |= MBOOT_FLAG_MODS;
-        mboot_info.mods_count = 1;
-        mboot_info.mods_addr = (uint32_t)&mboot_mod;
+        if (initrd_fits_upper_mem()) {
+            /* Must be called before load_kernel since it temporarily uses the same memory */
+            load_initrd();
+        } else {
+            initrd_skipped = 1;
+        }
     }
 
     load_kernel();
@@ -281,6 +294,10 @@ stage2_cmain(void)
     }
 
     print_str("\r\n");
+
+    if (initrd_skipped) {
+        print_str("Not enough upper memory for initrd, skipped\r\n");
+    }
 
     if (boot_flags & BOOT_FLAG_UART_DEBUG) {
         kernel_config.uart_mode = UART_MODE_DEBUG;

@@ -402,13 +402,6 @@ stage2_main:
     o32 call dword get_ticks
     mov [boot_start_ticks], eax
 
-    ; Call C code
-    o32 call dword stage2_cmain
-
-    ; Try enabling A20 using BIOS
-    mov ax, 0x2401
-    int 0x15
-
     ; Load the amount of lower memory
     int 0x12
     movzx eax, ax
@@ -422,6 +415,14 @@ stage2_main:
     movzx eax, ax
     mov [mboot_info + 8], eax
 .skip_upper_mem:
+
+    ; Call C code
+    o32 call dword stage2_cmain
+
+    ; Try enabling A20 using BIOS, must stay after the C code
+    ; since INT 15h/87h used there may disable A20 when done
+    mov ax, 0x2401
+    int 0x15
 
     ; Disable interrupts
     cli
