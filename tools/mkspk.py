@@ -176,8 +176,9 @@ def split_repeated_notes(notes):
         (prev_idx, prev_ms) = ret[-1] if ret else (None, 0)
 
         if cur_idx is not None and prev_idx == cur_idx:
-            ret[-1] = (prev_idx, max(1, prev_ms - MIN_REST_MS))
-            ret.append((None, MIN_REST_MS))
+            rest_ms = max(MIN_REST_MS, prev_ms // 3)
+            ret[-1] = (prev_idx, max(1, prev_ms - rest_ms))
+            ret.append((None, rest_ms))
             count += 1
 
         ret.append((cur_idx, cur_ms))
