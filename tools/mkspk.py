@@ -157,12 +157,9 @@ def merge_rests(notes):
     ret = []
 
     for idx, ms in notes:
-        if idx is None:
-            if not ret:
-                continue
-            if ret[-1][0] is None:
-                ret[-1] = (None, ret[-1][1] + ms)
-                continue
+        if idx is None and ret and ret[-1][0] is None:
+            ret[-1] = (None, ret[-1][1] + ms)
+            continue
         ret.append((idx, ms))
 
     return ret
