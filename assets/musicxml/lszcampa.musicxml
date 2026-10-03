@@ -6,8 +6,8 @@
     </work>
   <identification>
     <encoding>
-      <software>MuseScore Studio 4.7.4</software>
-      <encoding-date>2026-09-08</encoding-date>
+      <software>MuseScore Studio 4.7.5</software>
+      <encoding-date>2026-10-03</encoding-date>
       <supports element="accidental" type="yes"/>
       <supports element="beam" type="yes"/>
       <supports element="print" attribute="new-page" type="no"/>
@@ -366,10 +366,10 @@
         <direction-type>
           <metronome parentheses="no">
             <beat-unit>quarter</beat-unit>
-            <per-minute>140</per-minute>
+            <per-minute>130</per-minute>
             </metronome>
           </direction-type>
-        <sound tempo="140"/>
+        <sound tempo="130"/>
         </direction>
       <note>
         <pitch>
@@ -2344,6 +2344,15 @@
         </note>
       </measure>
     <measure number="12">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>125</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="125"/>
+        </direction>
       <note>
         <pitch>
           <step>G</step>
@@ -2397,6 +2406,15 @@
             </articulations>
           </notations>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>120</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="120"/>
+        </direction>
       <note>
         <pitch>
           <step>G</step>
@@ -2451,6 +2469,15 @@
             </articulations>
           </notations>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>135</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="135"/>
+        </direction>
       <note>
         <pitch>
           <step>D</step>
@@ -4388,6 +4415,15 @@
         </note>
       </measure>
     <measure number="20">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>130</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="130"/>
+        </direction>
       <note>
         <pitch>
           <step>G</step>
@@ -4441,6 +4477,15 @@
             </articulations>
           </notations>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>125</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="125"/>
+        </direction>
       <note>
         <pitch>
           <step>G</step>
@@ -4495,6 +4540,15 @@
             </articulations>
           </notations>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>120</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="120"/>
+        </direction>
       <note>
         <pitch>
           <step>B</step>
@@ -4574,6 +4628,15 @@
         <voice>1</voice>
         <type>quarter</type>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>125</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="125"/>
+        </direction>
       <note>
         <pitch>
           <step>B</step>
@@ -8608,6 +8671,15 @@
             </articulations>
           </notations>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>130</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="130"/>
+        </direction>
       <note>
         <pitch>
           <step>D</step>
@@ -8938,6 +9010,15 @@
         </note>
       </measure>
     <measure number="40">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>135</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="135"/>
+        </direction>
       <note>
         <pitch>
           <step>D</step>
@@ -11064,6 +11145,15 @@
         </note>
       </measure>
     <measure number="49">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>130</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="130"/>
+        </direction>
       <note>
         <pitch>
           <step>D</step>
@@ -11166,6 +11256,15 @@
             </articulations>
           </notations>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>125</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="125"/>
+        </direction>
       <note>
         <pitch>
           <step>D</step>
@@ -11272,6 +11371,15 @@
         </note>
       </measure>
     <measure number="50">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>115</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="115"/>
+        </direction>
       <note>
         <pitch>
           <step>G</step>
@@ -11347,10 +11455,10 @@
         <direction-type>
           <metronome parentheses="no">
             <beat-unit>quarter</beat-unit>
-            <per-minute>150</per-minute>
+            <per-minute>135</per-minute>
             </metronome>
           </direction-type>
-        <sound tempo="150"/>
+        <sound tempo="135"/>
         </direction>
       <note>
         <pitch>
@@ -15413,10 +15521,10 @@
         <direction-type>
           <metronome parentheses="no">
             <beat-unit>quarter</beat-unit>
-            <per-minute>150</per-minute>
+            <per-minute>125</per-minute>
             </metronome>
           </direction-type>
-        <sound tempo="150"/>
+        <sound tempo="125"/>
         </direction>
       <note>
         <pitch>
@@ -15624,6 +15732,15 @@
         </note>
       </measure>
     <measure number="62">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>135</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="135"/>
+        </direction>
       <note>
         <pitch>
           <step>C</step>
@@ -16134,6 +16251,15 @@
         </note>
       </measure>
     <measure number="63">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>125</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="125"/>
+        </direction>
       <note>
         <pitch>
           <step>D</step>
@@ -16351,6 +16477,15 @@
         </note>
       </measure>
     <measure number="64">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>135</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="135"/>
+        </direction>
       <note>
         <pitch>
           <step>E</step>
@@ -16872,6 +17007,15 @@
         </note>
       </measure>
     <measure number="65">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>125</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="125"/>
+        </direction>
       <note>
         <pitch>
           <step>F</step>
@@ -17086,6 +17230,15 @@
         </note>
       </measure>
     <measure number="66">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>135</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="135"/>
+        </direction>
       <note>
         <pitch>
           <step>G</step>
@@ -17507,15 +17660,6 @@
             </articulations>
           </notations>
         </note>
-      <direction placement="above" system="only-top">
-        <direction-type>
-          <metronome parentheses="no">
-            <beat-unit>quarter</beat-unit>
-            <per-minute>140</per-minute>
-            </metronome>
-          </direction-type>
-        <sound tempo="140"/>
-        </direction>
       <note>
         <pitch>
           <step>F</step>
@@ -17893,9 +18037,7 @@
         <duration>60</duration>
         <voice>1</voice>
         <type>16th</type>
-        <stem>down</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
+        <stem>up</stem>
         </note>
       <note>
         <pitch>
@@ -17907,9 +18049,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">begin</beam>
         </note>
       <note>
         <pitch>
@@ -17920,9 +18059,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <grace slash="yes"/>
@@ -17945,9 +18081,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -17958,9 +18091,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <grace slash="yes"/>
@@ -17982,9 +18112,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -17995,9 +18122,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       </measure>
     <measure number="68">
@@ -18022,9 +18146,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -18035,9 +18156,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -18049,9 +18167,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -18062,9 +18177,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
-        <beam number="3">end</beam>
         </note>
       <note>
         <pitch>
@@ -18659,8 +18771,6 @@
         <voice>1</voice>
         <type>16th</type>
         <stem>down</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
         </note>
       <note>
         <pitch>
@@ -18672,9 +18782,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">begin</beam>
         </note>
       <note>
         <pitch>
@@ -18685,9 +18792,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <grace slash="yes"/>
@@ -18710,9 +18814,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -18723,9 +18824,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -18737,9 +18835,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -18750,9 +18845,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       </measure>
     <measure number="70">
@@ -18776,9 +18868,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -18790,9 +18879,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -18804,9 +18890,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -18817,9 +18900,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
-        <beam number="3">end</beam>
         </note>
       <note>
         <grace slash="yes"/>
@@ -19377,9 +19457,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
-        <beam number="3">begin</beam>
         </note>
       <note>
         <pitch>
@@ -19391,9 +19468,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -19405,9 +19479,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -19419,9 +19490,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <grace slash="yes"/>
@@ -19442,9 +19510,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -19456,9 +19521,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -19470,9 +19532,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -19484,9 +19543,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       </measure>
     <measure number="72">
@@ -19511,9 +19567,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -19525,9 +19578,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -19539,9 +19589,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -19553,9 +19600,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
-        <beam number="3">end</beam>
         </note>
       <note>
         <grace slash="yes"/>
@@ -20132,9 +20176,6 @@
         <type>32nd</type>
         <accidental cautionary="yes" parentheses="no">sharp</accidental>
         <stem>down</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
-        <beam number="3">begin</beam>
         </note>
       <note>
         <pitch>
@@ -20146,9 +20187,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -20160,9 +20198,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -20174,9 +20209,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -20187,9 +20219,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -20202,9 +20231,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -20216,9 +20242,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -20231,9 +20254,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       </measure>
     <measure number="74">
@@ -20247,9 +20267,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -20261,9 +20278,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -20276,9 +20290,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -20289,9 +20300,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
-        <beam number="3">end</beam>
         </note>
       <note>
         <pitch>
@@ -20591,10 +20599,10 @@
         <direction-type>
           <metronome parentheses="no">
             <beat-unit>quarter</beat-unit>
-            <per-minute>140</per-minute>
+            <per-minute>135</per-minute>
             </metronome>
           </direction-type>
-        <sound tempo="140"/>
+        <sound tempo="135"/>
         </direction>
       <note>
         <pitch>
@@ -20963,9 +20971,6 @@
         <type>32nd</type>
         <accidental cautionary="yes" parentheses="no">sharp</accidental>
         <stem>down</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
-        <beam number="3">begin</beam>
         </note>
       </measure>
     <measure number="76">
@@ -20988,9 +20993,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21003,9 +21005,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21017,9 +21016,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21030,9 +21026,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21045,9 +21038,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21059,9 +21049,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21074,9 +21061,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21088,9 +21072,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21102,9 +21083,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21117,9 +21095,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21130,9 +21105,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
-        <beam number="3">end</beam>
         </note>
       <note>
         <pitch>
@@ -21607,9 +21579,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
-        <beam number="3">begin</beam>
         </note>
       <note>
         <pitch>
@@ -21622,9 +21591,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21636,9 +21602,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21651,9 +21614,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21665,9 +21625,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <grace slash="yes"/>
@@ -21689,9 +21646,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       </measure>
     <measure number="78">
@@ -21705,9 +21659,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21718,9 +21669,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21732,9 +21680,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21747,9 +21692,6 @@
         <type>32nd</type>
         <accidental cautionary="yes" parentheses="no">double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21762,9 +21704,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21777,9 +21716,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21791,9 +21727,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21805,9 +21738,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21819,9 +21749,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21833,9 +21760,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21848,9 +21772,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21863,9 +21784,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21878,9 +21796,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -21892,9 +21807,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
-        <beam number="3">end</beam>
         </note>
       <note>
         <grace slash="yes"/>
@@ -22089,9 +22001,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
-        <beam number="3">begin</beam>
         </note>
       <note>
         <pitch>
@@ -22104,9 +22013,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22118,9 +22024,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22132,9 +22035,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22147,9 +22047,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">end</beam>
         </note>
       <note>
         <grace slash="yes"/>
@@ -22170,9 +22067,7 @@
         <duration>60</duration>
         <voice>1</voice>
         <type>16th</type>
-        <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
+        <stem>up</stem>
         </note>
       <direction placement="above" system="only-top">
         <direction-type>
@@ -22193,9 +22088,6 @@
         <type>32nd</type>
         <accidental cautionary="yes" parentheses="no">natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">begin</beam>
         </note>
       <note>
         <pitch>
@@ -22207,9 +22099,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22222,9 +22111,6 @@
         <type>32nd</type>
         <accidental cautionary="yes" parentheses="no">double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22236,9 +22122,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22250,9 +22133,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22265,9 +22145,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22280,9 +22157,6 @@
         <type>32nd</type>
         <accidental cautionary="yes" parentheses="no">sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22294,9 +22168,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22308,9 +22179,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22322,9 +22190,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22336,9 +22201,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22349,9 +22211,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22363,9 +22222,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22377,9 +22233,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22391,9 +22244,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       </measure>
     <measure number="80">
@@ -22407,9 +22257,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22421,9 +22268,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22436,9 +22280,6 @@
         <type>32nd</type>
         <accidental cautionary="yes" parentheses="no">double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22451,9 +22292,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22465,9 +22303,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22479,9 +22314,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22494,9 +22326,6 @@
         <type>32nd</type>
         <accidental cautionary="yes" parentheses="no">sharp</accidental>
         <stem>down</stem>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
-        <beam number="3">end</beam>
         </note>
       <note>
         <pitch>
@@ -22749,9 +22578,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
-        <beam number="3">begin</beam>
         </note>
       <note>
         <pitch>
@@ -22763,9 +22589,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22778,9 +22601,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22793,9 +22613,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22807,9 +22624,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22821,9 +22635,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22836,9 +22647,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22850,9 +22658,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22864,9 +22669,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22877,9 +22679,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22891,9 +22690,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22906,9 +22702,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22920,9 +22713,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22934,9 +22724,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22949,9 +22736,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22964,9 +22748,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22978,9 +22759,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -22992,9 +22770,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23006,9 +22781,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23019,10 +22791,7 @@
         <duration>30</duration>
         <voice>1</voice>
         <type>32nd</type>
-        <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
+        <stem>up</stem>
         </note>
       <note>
         <pitch>
@@ -23033,9 +22802,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23046,10 +22812,7 @@
         <duration>30</duration>
         <voice>1</voice>
         <type>32nd</type>
-        <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
+        <stem>up</stem>
         </note>
       <note>
         <pitch>
@@ -23060,10 +22823,7 @@
         <voice>1</voice>
         <type>32nd</type>
         <accidental>natural</accidental>
-        <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
+        <stem>up</stem>
         </note>
       <note>
         <pitch>
@@ -23074,10 +22834,7 @@
         <duration>30</duration>
         <voice>1</voice>
         <type>32nd</type>
-        <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
+        <stem>up</stem>
         </note>
       </measure>
     <measure number="82">
@@ -23091,9 +22848,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23105,9 +22859,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23120,9 +22871,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23135,9 +22883,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23150,9 +22895,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23165,9 +22907,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23180,9 +22919,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
-        <beam number="3">end</beam>
         </note>
       <note>
         <pitch>
@@ -23715,9 +23451,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
-        <beam number="3">begin</beam>
         </note>
       <note>
         <pitch>
@@ -23729,9 +23462,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23744,9 +23474,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23759,9 +23486,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23772,9 +23496,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       </measure>
     <measure number="84">
@@ -23788,9 +23509,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23803,9 +23521,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23817,9 +23532,6 @@
         <type>32nd</type>
         <accidental>natural</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23831,9 +23543,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23846,9 +23555,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23861,9 +23567,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -23876,9 +23579,6 @@
         <type>32nd</type>
         <accidental>sharp</accidental>
         <stem>down</stem>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
-        <beam number="3">end</beam>
         </note>
       <note>
         <pitch>
@@ -24404,9 +24104,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
-        <beam number="3">begin</beam>
         </note>
       <note>
         <pitch>
@@ -24418,9 +24115,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24431,9 +24125,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24445,9 +24136,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24459,9 +24147,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       </measure>
     <measure number="86">
@@ -24476,9 +24161,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24489,9 +24171,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24503,9 +24182,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24517,9 +24193,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24531,9 +24204,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24544,9 +24214,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24558,9 +24225,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       </measure>
     <measure number="87">
@@ -24574,9 +24238,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24589,9 +24250,6 @@
         <type>32nd</type>
         <accidental>double-sharp</accidental>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24602,9 +24260,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24616,9 +24271,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24630,9 +24282,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24644,9 +24293,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24657,9 +24303,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24671,9 +24314,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24685,9 +24325,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24699,9 +24336,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24712,9 +24346,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24726,9 +24357,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24740,9 +24368,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24754,9 +24379,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24767,9 +24389,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24781,9 +24400,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24795,9 +24411,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24809,9 +24422,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24822,9 +24432,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24836,9 +24443,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24850,9 +24454,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24864,9 +24465,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24877,9 +24475,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
         </note>
       <note>
         <pitch>
@@ -24891,9 +24486,6 @@
         <voice>1</voice>
         <type>32nd</type>
         <stem>down</stem>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
-        <beam number="3">end</beam>
         </note>
       </measure>
     <measure number="88">
@@ -24901,10 +24493,10 @@
         <direction-type>
           <metronome parentheses="no">
             <beat-unit>quarter</beat-unit>
-            <per-minute>140</per-minute>
+            <per-minute>135</per-minute>
             </metronome>
           </direction-type>
-        <sound tempo="140"/>
+        <sound tempo="135"/>
         </direction>
       <note>
         <pitch>
@@ -27386,6 +26978,15 @@
         <beam number="2">continue</beam>
         <beam number="3">end</beam>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>125</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="125"/>
+        </direction>
       <note>
         <grace slash="yes"/>
         <pitch>
@@ -27525,6 +27126,15 @@
         <beam number="2">continue</beam>
         <beam number="3">end</beam>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>120</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="120"/>
+        </direction>
       <note>
         <grace slash="yes"/>
         <pitch>
@@ -27614,6 +27224,15 @@
         </note>
       </measure>
     <measure number="96">
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>115</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="115"/>
+        </direction>
       <note>
         <pitch>
           <step>G</step>
@@ -27666,6 +27285,15 @@
         <stem>up</stem>
         <beam number="1">end</beam>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>135</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="135"/>
+        </direction>
       <note>
         <pitch>
           <step>D</step>
@@ -30551,6 +30179,15 @@
         <beam number="2">end</beam>
         <beam number="3">end</beam>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>100</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="100"/>
+        </direction>
       <note>
         <pitch>
           <step>G</step>
@@ -30581,15 +30218,6 @@
         </note>
       </measure>
     <measure number="105">
-      <direction placement="above" system="only-top">
-        <direction-type>
-          <metronome parentheses="no">
-            <beat-unit>quarter</beat-unit>
-            <per-minute>100</per-minute>
-            </metronome>
-          </direction-type>
-        <sound tempo="100"/>
-        </direction>
       <note>
         <pitch>
           <step>G</step>
@@ -30604,6 +30232,15 @@
         <beam number="2">begin</beam>
         <beam number="3">begin</beam>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>90</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="90"/>
+        </direction>
       <note>
         <pitch>
           <step>B</step>
@@ -30645,6 +30282,15 @@
         <beam number="2">continue</beam>
         <beam number="3">continue</beam>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>80</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="80"/>
+        </direction>
       <note>
         <pitch>
           <step>B</step>
@@ -30686,6 +30332,15 @@
         <beam number="2">continue</beam>
         <beam number="3">continue</beam>
         </note>
+      <direction placement="above" system="only-top">
+        <direction-type>
+          <metronome parentheses="no">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>70</per-minute>
+            </metronome>
+          </direction-type>
+        <sound tempo="70"/>
+        </direction>
       <note>
         <pitch>
           <step>B</step>
@@ -30736,6 +30391,11 @@
         <voice>1</voice>
         <type>eighth</type>
         <stem>down</stem>
+        <notations>
+          <articulations>
+            <staccato/>
+            </articulations>
+          </notations>
         </note>
       <note>
         <rest/>
