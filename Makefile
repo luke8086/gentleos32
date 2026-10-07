@@ -60,15 +60,12 @@ BOOT_DEPS       := $(BOOT_OBJS:.o=.d)
 BOOT_ELF        := $(BUILDDIR)/boot/boot.elf
 BOOT_BIN        := $(BUILDDIR)/boot.bin
 
-SONG_SRCS       := $(wildcard assets/musicxml/*.musicxml)
-SONG_OBJS       := $(patsubst assets/musicxml/%.musicxml,assets/spk/%.spk,$(SONG_SRCS))
-
 OBJDIRS := $(addprefix $(BUILDDIR)/,$(KERNEL_SUBDIRS)) \
            $(addprefix $(BUILDDIR)/,$(BOOT_SUBDIRS))
 
 all: disks
 
-disks: $(KERNEL_HIMEM_BIN) $(KERNEL_LOMEM_BIN) $(BOOT_BIN) $(SONG_OBJS)
+disks: $(KERNEL_HIMEM_BIN) $(KERNEL_LOMEM_BIN) $(BOOT_BIN)
 	./tools/mkdisk.pl $(BOOT_BIN) $(KERNEL_LOMEM_BIN) $(DISK_IMAGE)
 	./tools/mkinitrd.py -a -d $(DISK_IMAGE)
 
@@ -96,15 +93,12 @@ $(KERNEL_HIMEM_BIN): $(KERNEL_HIMEM_ELF)
 $(KERNEL_LOMEM_BIN): $(KERNEL_LOMEM_ELF)
 	$(OBJCOPY) -O binary $< $@
 
-assets/spk/%.spk: assets/musicxml/%.musicxml
-	python3 tools/mkspk.py -i $< -o $@
-
 $(BUILDDIR)/data.o: $(BUILDDIR)/data.c
 	$(CC) $(KERNEL_CFLAGS) -MMD -MP -c $< -o $@
 
 ALWAYS_REBUILD:
 
-$(BUILDDIR)/data.c: $(SONG_OBJS) ALWAYS_REBUILD | $(OBJDIRS)
+$(BUILDDIR)/data.c: ALWAYS_REBUILD | $(OBJDIRS)
 	python3 ./tools/mkdata.py
 
 $(BUILDDIR)/%.o: %.c | $(OBJDIRS)
